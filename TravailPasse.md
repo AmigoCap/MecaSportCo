@@ -1,4 +1,4 @@
-#md Travail autour de la prédiction de passe.
+#Travail autour de la prédiction de passe.
 
 Intro : 
 Nous voulons concentrer nos recherches autour de la prédiction de passe. Ainsi nous allons chercher des modèles permettant cette prédiction pour ensuite les intégrer à l'interface visuelle.
