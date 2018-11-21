@@ -19,7 +19,7 @@ Afin de déterminer chaque zone on effectue de la manière suivante :
 <table border="0">
   <tr>
     <td>
-      <img src="Images/schema1.png" style="width: 100px;">
+      <img src="schema1.png" style="width: 100px;">
     </td>
   </tr>
 </table>
