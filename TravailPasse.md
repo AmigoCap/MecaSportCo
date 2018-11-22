@@ -19,7 +19,7 @@ Afin de déterminer chaque zone on effectue de la manière suivante :
 <table border="0">
   <tr>
     <td>
-      <img src="schema1.png" style="width: 70px;">
+      <img src="Images/schema1.png" style="width: 70px;">
     </td>
   </tr>
 </table>
@@ -30,7 +30,7 @@ Afin de déterminer chaque zone on effectue de la manière suivante :
 <table border="0">
   <tr>
     <td>
-      <img src="schema2.png" style="width: 70px;">
+      <img src="Images/schema2.png" style="width: 70px;">
     </td>
   </tr>
 </table>
@@ -38,7 +38,7 @@ Afin de déterminer chaque zone on effectue de la manière suivante :
 <table border="0">
   <tr>
     <td>
-      <img src="schema3.png" style="width: 70px;">
+      <img src="Images/schema3.png" style="width: 70px;">
     </td>
   </tr>
 </table>
