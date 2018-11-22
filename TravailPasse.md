@@ -14,7 +14,7 @@ pour déterminer chaque zone :
 - la vitesse Vb du ballon est plus grande que celle des joueurs 
 
 Afin de déterminer chaque zone on effectue de la manière suivante :
-- on détermine découpe le terrain en associant au ballon et aux joueurs les points pour lesquels ils sont les plus proches (qu'ils sont les plus rapides à rejoindre par rapport aux autres). Ainsi les zones où les défenseurs arrivent plus vite que les attaquants sont des zones perdues. De même les zones où le ballon arrive plus vite que les joueurs est une zone perdue car cela signifie qu'il ira hors des limites du terrain (cf schéma 1).
+- on découpe le terrain en associant au ballon et aux joueurs les points pour lesquels ils sont les plus proches (qu'ils sont les plus rapides à rejoindre par rapport aux autres). Ainsi les zones où les défenseurs arrivent plus vite que les attaquants sont des zones perdues. De même les zones où le ballon arrive plus vite que les joueurs est une zone perdue car cela signifie qu'il ira hors des limites du terrain (cf schéma 1).
 
 <table border="0">
   <tr>
