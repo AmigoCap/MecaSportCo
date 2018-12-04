@@ -21,6 +21,8 @@ Les deux liens [2] et [3] expliquent comment sont organisées les données de ch
 
 [4] C. Perin, R. Vuillemot, C. D. Stolper, J. T. Stasko, J. Wood, et S. Carpendale, « State of the Art of Sports Data Visualization », Computer Graphics Forum, vol. 37, juin 2018.
 
+## Modèle d'analyse des données
+
 
 
 
