@@ -17,7 +17,9 @@ Les deux liens [2] et [3] expliquent comment sont organisées les données de ch
 
 ## Exemples de visualisation
 
-- La visualisation de données sportives peut prendre de nombreuses formes différentes. On peut représenter sous forme de graphique les statistiques de joueurs pour comparer leur performance sur différents critères. Cette représentation ne fait que restituer les informations qu’apporte les données brutes. On peut présenter ces données de manière plus concrètes en affichant des graphiques superposés au terrain de sport. Enfin il est également possible de visualiser les données directement sur les vidéos des phases de jeu concernées afin de faire un lien concret entre données et phase de jeu. L'article [4] fait un état de l'art détaillé de tous les travaux déjà réalisés autour de l'analyse de données sportives. 
+### Généralités
+
+La visualisation de données sportives peut prendre de nombreuses formes différentes. On peut représenter sous forme de graphique les statistiques de joueurs pour comparer leur performance sur différents critères. Cette représentation ne fait que restituer les informations qu’apporte les données brutes. On peut présenter ces données de manière plus concrètes en affichant des graphiques superposés au terrain de sport. Enfin il est également possible de visualiser les données directement sur les vidéos des phases de jeu concernées afin de faire un lien concret entre données et phase de jeu. L'article [4] fait un état de l'art détaillé de tous les travaux déjà réalisés autour de l'analyse de données sportives. 
 
 [4] C. Perin, R. Vuillemot, C. D. Stolper, J. T. Stasko, J. Wood, et S. Carpendale, « State of the Art of Sports Data Visualization », Computer Graphics Forum, vol. 37, juin 2018.
 
