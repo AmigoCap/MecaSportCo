@@ -21,13 +21,26 @@ Les deux liens [2] et [3] expliquent comment sont organisées les données de ch
 
 [4] C. Perin, R. Vuillemot, C. D. Stolper, J. T. Stasko, J. Wood, et S. Carpendale, « State of the Art of Sports Data Visualization », Computer Graphics Forum, vol. 37, juin 2018.
 
+- SoccerStories est une interface permettant de visualiser certaines phases de match de football. Cette interface peut s’avérer très utile en prenant en compte le fait que les données sous leur forme pure parlent peu. L’interviews d’experts confirment cette remarque puisque celles-ci révèlent que dans l’analyse du football il ne faut pas oublier le côté visuel et sélection de phases de jeu qui permettent de raconter une histoire. Nous pouvons tirer plusieurs inspirations de cette interface notamment les différents critères et curseurs présentés en les adaptant à nos propres critères ainsi que les différentes démarchent présentées dans l’article (interview d’experts, phase d’évaluation, description du sport…)
+
+[5] C. Perin, R. Vuillemot, et J.-D. Fekete, « SoccerStories: A Kick-off for Visual Soccer Analysis », IEEE Transactions on Visualization and Computer Graphics, vol. 19, no 12, p. 2506‑2515, déc. 2013.
+
+
 ## Modèle d'analyse des données
 
+- L'article [6] présente une nouvelle métrique qui permet de caractériser une situation donnée en terme de possibilité de points marqués suite à cette action. Cette quantité est appelée EPV : Expected Possession Value. Le calcul de l'EPV se fait de manière statistique en prenant en compte une quantité finie de possibilité d'action pour le joueur en possession de la balle : dribbles, passes, shoots... 
+
+[6] D. Cervone, A. D’Amour, L. Bornn, et K. Goldsberry, « Predicting Points and Valuing Decisions in Real Time with NBA Optical Tracking Data », p. 9, 2014.
+
+- L'article [7] réalise une étude sur l’occupation de l’espace au basket. Elle repose sur l’analogie avec l’échange sur le marché. Le terrain est découpé grâce aux espaces de Voronoï et au sein de chacun des ces espaces l’influence d’un joueur est inversement proportionnel à la distance à laquelle il se situe. Un principe de base : si un joueur i donne la balle à un joueur j c’est que celui-ci occupe une position mieux placée. Ainsi il devient intéressant d’associer une valeur à chaque espace du terrain en le découpant en cellules. Pour cela ils utilisent “l’inférence bayésienne” à l’aide des données de position des joueurs et de passes. Il remarque que les zones importantes du terrain peuvent varier d’une équipe à une autre. 
+
+[7] D. Cervone, L. Bornn, et K. Goldsberry, « 1 Intro: the Basketball Court is a Real Estate Market », p. 8, 2016.
+
+- L'article [8] réalise une étude sur l’occupation et la génération d’espaces au foot. Dans ce sport, les joueurs ne sont en possession du ballon que 3 minutes, d’où  l’importance du jeu sans ballon. La valeur d’un espace du terrain peut être définie grâce à sa position relativement au ballon, la proximité avec le but adverse et le niveau d’appartenance de l’espace. Pour aller plus loin on peut regarder la vitesse du joueur également. Après avoir défini la zone d’influence d’un joueur l’auteur définit l’état de contrôle d’une zone par une équipe donnée en comparant à chaque endroit la somme des influences des joueurs d’une équipe avec celle de l’autre équipe. Ensuite l’auteur cherche a donné de la valeur à une zone du terrain. Plusieurs critères envisagés : position par rapport à la balle, au but et des autres joueurs. Afin de déterminer une fonction caractéristique de la valeur d’une zone d’influence ils étudient d’abord la somme d’influence de la défense d’une zone en fonction de la position de la balle. Pour cela ils utilisent un feed forward neural network. Une fois la valeur d’une zone déterminée à partir de la position de la balle et des défenseurs il la normalise par la valeur d’une zone vue par rapport à la position du but adverse. Ils se concentrent finalement sur le sens des déplacements des joueurs avec deux critères : SOG (space occupation gain) et SGG (space generation gain). Enfin l’auteur réalise une analyse de ses recherches avec phase de jeu du FC Barcelone.
+
+[8] J. Fernandez, L. Bornn, « Wide Open Spaces: A statistical technique for measuring space creation in professional soccer », p. 19, 2018.
 
 
 
-
-
-## Etudes sur les critères
 
 
