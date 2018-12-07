@@ -55,7 +55,7 @@ L'article 6 détaille l'importance de combiner données et vidéos tout en indiq
 
 ###  Corrélation entre particules fluides et footballers. 
 
-L’étude des écoulements turbu- lents des particules fluides montre que la géométrie de l’espace dans lequel elles évoluent influe sur le changement de direction moyen. Il se trouve que la fonction de densité des changements de direction des joueurs de football sur un terrain de foot révèle une forme commune à celles de particules fluides confinées en 2D. Ainsi le comportement anisotrope et a priori non aléatoire des joueurs de foot n’a pas d’influence et seule la géométrie du domaine de limitation a un impact sur les changements de directions moyens.
+L’étude des écoulements turbulents des particules fluides montre que la géométrie de l’espace dans lequel elles évoluent influe sur le changement de direction moyen. Il se trouve que la fonction de densité des changements de direction des joueurs de football sur un terrain de foot révèle une forme commune à celles de particules fluides confinées en 2D. Ainsi le comportement anisotrope et a priori non aléatoire des joueurs de foot n’a pas d’influence et seule la géométrie du domaine de limitation a un impact sur les changements de directions moyens.
 
 [10] Wouter J. T. Bos Benjamin Kadoch and Kai Schneider. Directional change of fluid particles in two-dimensional turbulence and of football players. Physical Review Fluids, June 2017.
 
