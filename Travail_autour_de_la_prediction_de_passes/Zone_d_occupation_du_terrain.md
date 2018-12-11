@@ -8,7 +8,15 @@ On s'intéresse à l'occupation du terrain par les défenseurs et les attaquants
 
 La première idée pour découper le terrain consiste à utiliser les diagrammes de Voronoï. Ces diagrammes découpent un plan en cellules à partir d'un ensemble de point appelés germes. Chaque cellule enferme un seul germe, et forme l'ensemble des points du plan plus proches de ce germe que de tous les autres. 
 
-Dans notre cas les germes sont les joueurs. On peut donc découper le terrain en en associant à chaque joueur une zone lui appartenant.
+Dans notre cas les germes sont les joueurs. On peut donc découper le terrain en associant à chaque joueur une zone lui appartenant. La figure 1 illustre ce découpage.
+
+<table border="10">
+  <tr>
+    <td>
+      <img src="Images/Voronoï_simple.png" style="width: 100px;">
+    </td>
+  </tr>
+</table>
 
 ## Valuation de l'espace
 
