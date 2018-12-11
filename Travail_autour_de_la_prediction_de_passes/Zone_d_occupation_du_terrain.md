@@ -4,7 +4,7 @@
 
 On s'intéresse à l'occupation du terrain par les défenseurs et les attaquants. On ne prend pas en compte la position du ballon. On va chercher à découper le terrain en zone dans le but sera de déterminer des zones où 
 
-## Espaces de Vornoï
+## Espaces de Voronoï
 
 ## Valuation de l'espace
 
