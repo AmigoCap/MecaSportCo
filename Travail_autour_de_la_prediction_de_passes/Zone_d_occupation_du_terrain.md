@@ -42,6 +42,29 @@ Sur la figure précédente les vecteurs vitesses des joueurs sont représentés 
 
 Pour prendre en compte l'influence de l'inertie nous devons changer notre façon de calculer le temps qu'un joueur met pour rejoindre un point. Le principe du calcul repose sur l'idée que les joueurs utilise une force de norme constante et dont la direction dépend de la vitesse initiale pour leur permettre rejoindre un point donné. Le détail du calcul est présenté dans le document [Closest player to a point](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Closest_player_to_a_point.pdf).
 
+On obtient le résultat suivant : 
+
+<table border="2">
+  <tr>
+    <td>
+      <img src="Images/Voronoi_inertie.png" style="width: 20px;">
+    </td>
+  </tr>
+</table>
+
+Pour certaines séquences on a constaté qu'il y avait des problèmes avec le principe de calcul du temps pour les zones proches des joueurs avec de grandes vitesses. En effet, un joueur avec une grande vitesse va avoir besoin d'une force très forte pour compenser. La situtation sur la figure suivante illustre ce problème où le joueur (trajectoire en bleue, vecteur vitesse initiale en vert et force en noir) a dépassé le point visé avant de l'atteindre. Néanmoins il est possible de trouver une explication réelle à ce problème en remarquant le fait qu'un joueur se déplaçant très rapidement ne contrôle pas la zone juste devant lui car à l'instant d'après elle sera derrière lui. Comme nous ne sommes pas encore certains de cette interprétation nous avons pris une force relativement élevée (10m.s-2) et nous avons considéré que les joueurs par leur physique contrôlent naturellement une zone autour d'eux qui sera modélisée par des cercles plus gros pour les représenter.
+
+<table border="2">
+  <tr>
+    <td>
+      <img src="Images/Path.png" style="width: 20px;">
+    </td>
+  </tr>
+</table>
+
+## Animation
+
+On a ensuite animé notre modèle pour une séquence de jeu. 
 
 
 
