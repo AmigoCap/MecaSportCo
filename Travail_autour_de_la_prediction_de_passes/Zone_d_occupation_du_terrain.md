@@ -10,7 +10,7 @@ La première idée pour découper le terrain consiste à utiliser les diagrammes
 
 Dans notre cas les germes sont les joueurs. On peut donc découper le terrain en associant à chaque joueur une zone lui appartenant. La figure 1 illustre ce découpage.
 
-<table border="10">
+<table border="2">
   <tr>
     <td>
       <img src="Images/Voronoi_simple.png" style="width: 50px;">
