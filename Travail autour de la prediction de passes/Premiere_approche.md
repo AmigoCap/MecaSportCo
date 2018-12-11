@@ -1,9 +1,9 @@
-# Première approche "à la main" du problème"
+# Première approche "à la main" du problème
 
 ## Introduction
 
-Nous voulons concentrer nos recherches autour de la prédiction de passe. Ainsi nous allons chercher des modèles permettant cette prédiction pour ensuite les intégrer à l'interface visuelle.
-Nous allons procéder par étape en réalisant dans un premier temps un modèle très simple.
+Nous voulons concentrer nos recherches autour de la prédiction de passe. Ainsi nous allons chercher des modèles permettant cette prédiction pour ensuite les intégrer à l'interface visuelle. Notre idée générale est la suivante : donner une valeur en terme de possibilité de passe à chaque zone du terrain en prenant en compte plusieurs paramètres pouvant encourager ou au contraire empêcher une passe. 
+Nous allons procéder par étape en intégrant petit à petit de nouvelles contraintes.
 
 ## 1er modèle
 
@@ -14,12 +14,12 @@ pour déterminer chaque zone :
 - la vitesse Vb du ballon est plus grande que celle des joueurs 
 
 Afin de déterminer chaque zone on effectue de la manière suivante :
-- on découpe le terrain en associant au ballon et aux joueurs les points pour lesquels ils sont les plus proches (qu'ils sont les plus rapides à rejoindre par rapport aux autres). Ainsi les zones où les défenseurs arrivent plus vite que les attaquants sont des zones perdues. De même les zones où le ballon arrive plus vite que les joueurs est une zone perdue car cela signifie qu'il ira hors des limites du terrain (cf schéma 1).
+- on découpe le terrain en associant au ballon et aux joueurs les points pour lesquels ils sont les plus proches (qu'ils sont les plus rapides à rejoindre par rapport aux autres). Ce découpage revient à déterminer les espaces de Voronoï associés aux joueurs et au ballon en donnant un point double au ballon. Ainsi les zones où les défenseurs arrivent plus vite que les attaquants sont des zones perdues. De même les zones où le ballon arrive plus vite que les joueurs est une zone perdue car cela signifie qu'il ira hors des limites du terrain (cf schéma 1).
 
 <table border="0">
   <tr>
     <td>
-      <img src="schema1.png" style="width: 70px;">
+      <img src="MecaFootCo/Images/schema1.png" style="width: 70px;">
     </td>
   </tr>
 </table>
@@ -39,6 +39,18 @@ Afin de déterminer chaque zone on effectue de la manière suivante :
   <tr>
     <td>
       <img src="Images/schema3.png" style="width: 70px;">
+    </td>
+  </tr>
+</table>
+
+## Prise en compte de la vitesse des joueurs
+
+La vitesse des joueurs va influencer le découpage des zones puisqu'un joueur peut se trouver plus loin d'une zone qu'un autre joueur et arriver plus vite que ce dernier. Ce problème est illustré sur le schéma suivant :
+
+<table border="0">
+  <tr>
+    <td>
+      <img src="Images/schema4.png" style="width: 70px;">
     </td>
   </tr>
 </table>
