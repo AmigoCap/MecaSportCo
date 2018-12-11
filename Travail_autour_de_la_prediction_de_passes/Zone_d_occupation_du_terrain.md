@@ -23,7 +23,7 @@ Dans notre cas les germes sont les joueurs. On peut donc découper le terrain en
 Les diagrammes de Voronoï permettent une première approche simple pour le découpage de l'espace. Cependant au sein d'une zone associée à un joueur celui-ci contrôle plus les points proches de lui que les points loin. On va chercher donc à donner une valeur de contrôle par les joueurs à chaque espace du terrain. Notre démarche est la suivante :
 - on découpe le terrain en petites cellules
 - pour chaque cellule on calcule temps que chaque joueur met pour rejoindre cette zone avec une vitesse v donnée identique pour tous les joueurs. 
-- on cherche l'attaquant et le défenseur qui arrive le plus vite à ce point en conservant leur temps respectif qu'on note t</sub>min def; et t_min_att.
+- on cherche l'attaquant et le défenseur qui arrive le plus vite à ce point en conservant leur temps respectif qu'on note t<sub>min def; et t_min_att.
 - on associe à cette zone la valeur val=t_{min def}-t_{min att}
 
 Ainsi plus un attaquant peut arriver vite par rapport aux défenseurs à une cellule, plus il contrôle celle-ci, plus la quantité val est grande.
