@@ -10,7 +10,7 @@ La première idée pour découper le terrain consiste à utiliser les diagrammes
 
 Dans notre cas les germes sont les joueurs. On peut donc découper le terrain en associant à chaque joueur une zone lui appartenant. La figure 1 illustre ce découpage.
 
-![Découpage en espace de Vornoï](/Images/Voronoï_simple.png)
+![Découpage en espace de Voronoï](/Images/Voronoï_simple.png "Découpage")
 
 <table border="2">
   <tr>
