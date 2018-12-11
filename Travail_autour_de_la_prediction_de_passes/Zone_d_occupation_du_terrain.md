@@ -52,6 +52,8 @@ On obtient le résultat suivant :
   </tr>
 </table>
 
+Tout d'abord si on compare ce résultat avec le résultat précédent on remarque que les zones bleues et rouges ne coïncident plus avec les limites définies par les diagrammes de voronoï. Ceci montre donc le fait que l'inertie a une influence sur l'occupation du terrain par les joueurs.
+
 Pour certaines séquences on a constaté qu'il y avait des problèmes avec le principe de calcul du temps pour les zones proches des joueurs avec de grandes vitesses. En effet, un joueur avec une grande vitesse va avoir besoin d'une force très forte pour compenser. La situtation sur la figure suivante illustre ce problème où le joueur (trajectoire en bleue, vecteur vitesse initiale en vert et force en noir) a dépassé le point visé avant de l'atteindre. Néanmoins il est possible de trouver une explication réelle à ce problème en remarquant le fait qu'un joueur se déplaçant très rapidement ne contrôle pas la zone juste devant lui car à l'instant d'après elle sera derrière lui. Comme nous ne sommes pas encore certains de cette interprétation nous avons pris une force relativement élevée (10m.s-2) et nous avons considéré que les joueurs par leur physique contrôlent naturellement une zone autour d'eux qui sera modélisée par des cercles plus gros pour les représenter.
 
 <table border="2">
@@ -66,5 +68,14 @@ Pour certaines séquences on a constaté qu'il y avait des problèmes avec le pr
 
 On a ensuite animé notre modèle pour une séquence de jeu. 
 
+<table border="2">
+  <tr>
+    <td>
+    <embed src="video1.mp4" autostart="false" height="30" width="144" />    
+    </td>
+  </tr>
+</table>
+
+Nous allons cherché dans la suite à mettre en parallèle à cette séquence la vidéo réelle du match ce qui permettra plus d'interprétation. Nous avons également lancé des animations pour d'autres séquences de jeu puisqu'il se trouve que sur celle-ci il n'y a pas de passes alors que c'est ce qui nous intéresse. 
 
 
