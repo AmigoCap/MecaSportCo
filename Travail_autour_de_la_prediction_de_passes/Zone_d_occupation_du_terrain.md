@@ -31,7 +31,7 @@ Ainsi plus un attaquant peut arriver vite par rapport aux défenseurs à une cel
 <table border="2">
   <tr>
     <td>
-      <img src="Images/Voronoi_value.png" style="width: 50px;">
+      <img src="Images/Voronoi_value.png" style="width: 20px;">
     </td>
   </tr>
 </table>
