@@ -1,4 +1,4 @@
-# Travail autour de la prédiction de passe.
+# Première approche "à la main" du problème"
 
 ## Introduction
 
