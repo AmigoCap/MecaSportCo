@@ -68,9 +68,9 @@ Pour certaines séquences on a constaté qu'il y avait des problèmes avec le pr
 
 On a ensuite animé notre modèle pour une séquence de jeu. 
 
-
-<embed src="/Images/video1.mp4" autostart="false" height="30" width="144" />    
-<a href="/Images/video.mp4" title="Télécharger film">nom du film</a>
+<video width="320" height="240" controls>
+  <source src="/Images/video1.mp4.mp4" type="video/mp4">
+</video>
 
 Nous allons cherché dans la suite à mettre en parallèle à cette séquence la vidéo réelle du match ce qui permettra plus d'interprétation. Nous avons également lancé des animations pour d'autres séquences de jeu puisqu'il se trouve que sur celle-ci il n'y a pas de passes alors que c'est ce qui nous intéresse. 
 
