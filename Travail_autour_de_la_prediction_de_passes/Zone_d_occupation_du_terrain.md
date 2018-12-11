@@ -40,7 +40,7 @@ Ainsi plus un attaquant peut arriver vite par rapport aux défenseurs à une cel
 
 Sur la figure précédente les vecteurs vitesses des joueurs sont représentés par les flèches bleues. De manière intuitive on comprend que le contrôle de l'espace par les joueurs est influencé par cette vitesse. Nous allons donc prendre en compte ceci dans la suite. 
 
-Pour prendre en compte l'influence de l'inertie nous devons changer notre façon de calculer le temps qu'un joueur met pour rejoindre un point. Le principe du calcul repose sur l'idée que les joueurs utilise une force de norme constante et dont la direction dépend de la vitesse initiale pour leur permettre rejoindre un point donné. Le détail du calcul est présenté dans le document [Closest player to a point] (https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Closest_player_to_a_point.pdf).
+Pour prendre en compte l'influence de l'inertie nous devons changer notre façon de calculer le temps qu'un joueur met pour rejoindre un point. Le principe du calcul repose sur l'idée que les joueurs utilise une force de norme constante et dont la direction dépend de la vitesse initiale pour leur permettre rejoindre un point donné. Le détail du calcul est présenté dans le document [Closest player to a point](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Closest_player_to_a_point.pdf).
 
 
 
