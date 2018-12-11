@@ -13,7 +13,7 @@ Dans notre cas les germes sont les joueurs. On peut donc découper le terrain en
 <table border="10">
   <tr>
     <td>
-      <img src="Images/Voronoï_simple.png" style="width: 100px;">
+      <img src="Images/Voronoï_simple.png" style="width: 50px;">
     </td>
   </tr>
 </table>
