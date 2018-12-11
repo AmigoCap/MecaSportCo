@@ -14,7 +14,7 @@ Dans notre cas les germes sont les joueurs. On peut donc découper le terrain en
 <table border="2">
   <tr>
     <td>
-      <img src="Images/Voronoi_simple.png" atl="Figure 1 : Découpage du terrain à l'aide des espaces de Voronoï" style="width: 50px;">
+      <img src="Images/Voronoi_simple.png" alt="Figure 1 : Découpage du terrain à l'aide des espaces de Voronoï" style="width: 50px;">
     </td>
   </tr>
 </table>
