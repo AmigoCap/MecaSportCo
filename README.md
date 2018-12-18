@@ -30,7 +30,7 @@ Dans notre cas, ces données sont celles issues des matchs en *play-by-play*, c'
 Sur la figure suivante est présentée la structure générale des données : 
 ![dataschema](https://github.com/AmigoCap/MecaFootCo/blob/master/Images/data.jpg "data schema")
 
-## Travail réalisé 
+## Travaux réalisés
 Les travaux que nous avons réalisés sont les suivants : 
 
 > Données
@@ -40,5 +40,7 @@ Les travaux que nous avons réalisés sont les suivants :
 - [Première approche](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Premiere_approche.md)
 - [Zone d'occupation du terrain](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Zone_d_occupation_du_terrain.md)
 - [Programmation du modèle de gravité](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/new_animation.py)
-        
+ 
+ > Bibliographie
+ - [Bibliographique commentée](https://github.com/AmigoCap/MecaFootCo/blob/master/Bibliographie_commentee.md)
         
