@@ -29,3 +29,11 @@ Le jeu de données que nous utilisons est issu des données de l'entreprise ***S
 Dans notre cas, ces données sont celles issues des matchs en *play-by-play*, c'est à dire action par action. Chacune est mise sous la forme d'un dictionnaire. Elles sont constituées des clées suivantes : *visitor*, *gamedate*, *events*, *gameid* et *home*. Le point qui nous intéresse est principalement la clé *events* qui se trouve elle aussi être un dictionnaire.
 Sur la figure suivante est présentée la structure générale des données : 
 ![dataschema](https://github.com/AmigoCap/MecaFootCo/blob/master/Images/data.jpg "data schema")
+
+## Travail réalisé 
+Les travaux que nous avons réalisés sont les suivantes : 
+    - [Travail autour de la prédiction de passe](https://github.com/AmigoCap/MecaFootCo/tree/master/Travail_autour_de_la_prediction_de_passes) :
+        - [Première approche](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Premiere_approche.md)
+        - [Zone d'occupation du terrain](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Zone_d_occupation_du_terrain.md)
+        
+        
