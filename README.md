@@ -34,11 +34,11 @@ Sur la figure suivante est présentée la structure générale des données :
 Les travaux que nous avons réalisés sont les suivants : 
 
 > Données
-- [Extraction de phase de jeu en Python]()
+- [Extraction de phase de jeu en Python](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/extract_lower_json.py)
 
 > [Travail autour de la prédiction de passe](https://github.com/AmigoCap/MecaFootCo/tree/master/Travail_autour_de_la_prediction_de_passes) :
 - [Première approche](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Premiere_approche.md)
 - [Zone d'occupation du terrain](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Zone_d_occupation_du_terrain.md)
-- [Programmation du modèle de gravité]()
+- [Programmation du modèle de gravité](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/new_animation.py)
         
         
