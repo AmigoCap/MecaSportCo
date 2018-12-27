@@ -19,9 +19,9 @@ De plus l'exploitation de ces données d'un point de vue autre que sportif peut 
 
 ### Source de données disponible
 Nous disposons actuellement des données pour 3 sports différents : le Football, le Basket et le Rugby. Pour chacun de ces sports ces données ont des formats différents dont chacun d’eux présente des avantages et des inconvénients :
-    - Basket : 632 matchs de NBA. Chaque match est découpé en évènements. Chaque évènement contient la position des joueurs des deux équipes et du ballon.
-    - Foot : données pour deux matchs pour les deux équipes. Nous avons également des données pour 3 autres matchs mais seulement avec une équipe.
-    - Rugby : tous les matchs et entraînements du LOU depuis 2016.
+- Basket : 632 matchs de NBA. Chaque match est découpé en évènements. Chaque évènement contient la position des joueurs des deux équipes et du ballon.
+- Foot : données pour deux matchs pour les deux équipes. Nous avons également des données pour 3 autres matchs mais seulement avec une équipe.
+- Rugby : tous les matchs et entraînements du LOU depuis 2016.
 
 Au vu de la quantité de données que le Basket peut fournir nous allons concentrer notre étude sur ce sport.
 
