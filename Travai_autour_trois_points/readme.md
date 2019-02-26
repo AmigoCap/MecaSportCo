@@ -32,20 +32,21 @@ Trace le terrain ainsi que l'occupation de l'espace selon le modèle utilisant l
 Renvoie qui possède la balle au moment *moments[i]* ou 0 si la balle est en transit.
 
 ### basket_direction(player,where_attack)
+Renvoie le couple de vecteurs des directions entre *player* (joueur ou ballon) et les extrémités de la planche.
 
 ### detect_shoot(moments,i,players)
-
-### test_detect_shoot(moments)
+Renvoie *True* ou *False* selon si le moment *moments[i]* correspond à un tir ou non.
 
 ### time_to_point(F,a,b,v)
+Renvoie le temps nécessaire pour aller du point A (*a*) au point B (*b*) avec une vitesse initiale *v* en étant attiré par une force de norme *F* dont la direction minimise ce temps.
 
 ### calcul_aire_un_joueur(moments,j,n,F,player,players)
+Renvoie l'aire d'un joueur 
 
 ### three_points(moments,i,who_ball)
+Renvoie *True* ou *False* selon que le moment *moments[i]* corresponde à un tir à 3 points.
 
 ### distance_closest_player(moments,i,player,index_player,F,players)
-
-### test_moment(moment)
 
 ### track_shoot_event(event)
 
