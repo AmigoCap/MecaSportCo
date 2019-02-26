@@ -33,7 +33,7 @@ Renvoie le barycentre de l'équipe *i* pour le moment *moment*.
 Renvoie l'indice de l'équipe qui attaque au moment *moments[i]*.
 
 ### where_attack(moments,j)
-Renvoie le côté duquel l'action a lieu au moment *moments[j]$.
+Renvoie le côté duquel l'action a lieu au moment *moments[j]*.
 
 ### att_def_ball_pos(moments,j)
 Renvoie les listes *att_pos*, *def_pos*, *ball* définies au moment *moments[j]*.
