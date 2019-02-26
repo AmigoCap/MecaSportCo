@@ -3,9 +3,23 @@
 
 Cette section vise à expliquer le rôle de chaque fonction. 
 
-> distance(a,b)
-> barycentre(moment,i)
-> who_attack(moments,i)
+> Sommaire 
+- distance(a,b)
+- barycentre(moment,i)
+- who_attack(moments,i)
+- where_attack(moments,j)
+- att_def_ball_pos(moments,j)
+- players_ball(moments,j)
+- voronoi(moments,j)
+- print_court(moments,i)
+- player_with_ball(moments,i)
+- basket_direction(player,where_attack)
+- detect_shoot(moments,i,players)
+- time_to_point(F,a,b,v)
+- calcul_aire_un_joueur(moments,j,n,F,player,players)
+- three_points(moments,i,who_ball)
+- track_shoot_event(event)
+- track_shoot_match(data,match) 
 
 ### distance(a,b)
 Renvoie la distance entre deux points A (*a*) et B (*b*).
