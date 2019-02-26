@@ -4,8 +4,8 @@
 Cette section vise à expliquer le rôle de chaque fonction. 
 
 > Sommaire 
-- distance(a,b)
-- barycentre(moment,i)
+- [distance(a,b)](https://github.com/AmigoCap/MecaFootCo/blob/master/Travai_autour_trois_points/readme.md#distanceab)
+- [barycentre(moment,i)](https://github.com/AmigoCap/MecaFootCo/blob/master/Travai_autour_trois_points/readme.md#barycentremomenti)
 - who_attack(moments,i)
 - where_attack(moments,j)
 - att_def_ball_pos(moments,j)
