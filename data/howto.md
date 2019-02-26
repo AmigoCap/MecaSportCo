@@ -11,3 +11,8 @@ Le jeu de données que nous utilisons est issu des données de l'entreprise ***S
 Dans notre cas, ces données sont celles issues des matchs en *play-by-play*, c'est à dire action par action. Chacune est mise sous la forme d'un dictionnaire. Elles sont constituées des clées suivantes : *visitor*, *gamedate*, *events*, *gameid* et *home*. Le point qui nous intéresse est principalement la clé *events* qui se trouve elle aussi être un dictionnaire.
 Sur la figure suivante est présentée la structure générale des données : 
 ![dataschema](https://github.com/AmigoCap/MecaFootCo/blob/master/Images/data.jpg "data schema")
+
+
+# Uploaded data
+
+Les données disponibles dans ce répertoire GitHub correspondent aux 4 quarts temps du match San Antonio Spurs vs. Washington Wizards. On peut retrouver ce match à l'adresse : https://stats.nba.com/game/0021500061/playbyplay/?GameID=0021500061.
