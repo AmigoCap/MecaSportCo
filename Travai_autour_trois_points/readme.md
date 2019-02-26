@@ -3,7 +3,7 @@
 
 Cette section vise à expliquer le rôle de chaque fonction. 
 
-> Sommaire 
+## Sommaire  
 - [distance(a,b)](https://github.com/AmigoCap/MecaFootCo/blob/master/Travai_autour_trois_points/readme.md#distanceab)
 - [barycentre(moment,i)](https://github.com/AmigoCap/MecaFootCo/blob/master/Travai_autour_trois_points/readme.md#barycentremomenti)
 - [who_attack(moments,i)](https://github.com/AmigoCap/MecaFootCo/blob/master/Travai_autour_trois_points/readme.md#who_attackmomentsi)
