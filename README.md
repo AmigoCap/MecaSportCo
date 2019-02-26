@@ -17,7 +17,7 @@ De plus l'exploitation de ces données d'un point de vue autre que sportif peut 
 - occupation de l'espace et zones d'influence,
 - description et prédiction d'une phase de jeu.
 
-### Source de données disponible
+### Sources de données disponibles
 Nous disposons actuellement des données pour 3 sports différents : le Football, le Basket et le Rugby. Pour chacun de ces sports ces données ont des formats différents dont chacun d’eux présente des avantages et des inconvénients :
 - Basket : 632 matchs de NBA. Chaque match est découpé en évènements. Chaque évènement contient la position des joueurs des deux équipes et du ballon.
 - Foot : données pour deux matchs pour les deux équipes. Nous avons également des données pour 3 autres matchs mais seulement avec une équipe.
@@ -40,6 +40,8 @@ Les travaux que nous avons réalisés sont les suivants :
 - [Première approche](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Premiere_approche.md)
 - [Zone d'occupation du terrain](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/Zone_d_occupation_du_terrain.md)
 - [Programmation du modèle de gravité](https://github.com/AmigoCap/MecaFootCo/blob/master/Travail_autour_de_la_prediction_de_passes/new_animation.py)
+
+> Autour du tir à 3 points 
  
  > Bibliographie
  - [Bibliographique commentée](https://github.com/AmigoCap/MecaFootCo/blob/master/Bibliographie_commentee.md)
