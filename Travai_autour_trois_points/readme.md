@@ -3,6 +3,10 @@
 
 Cette section vise à expliquer le rôle de chaque fonction. 
 
+> distance(a,b)
+> barycentre(moment,i)
+> who_attack(moments,i)
+
 ### distance(a,b)
 Renvoie la distance entre deux points A (*a*) et B (*b*).
 a et b sont des couples de positions (i,j). 
