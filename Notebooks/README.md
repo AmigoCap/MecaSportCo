@@ -2,4 +2,4 @@
 
 In this file, you find all the notebooks that summarize our approach in a logical and chronological way. There are also python module that are used in notebooks. The file data contains a sample of a game to make some test. Let's note that all the data use is not imported because it is to big.
 
-[test](http://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/Notebooks/1_Introduction_Space_occupation.ipynb)
+
