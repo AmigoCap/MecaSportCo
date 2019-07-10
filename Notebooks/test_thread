@@ -1,0 +1,158 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jun 19 13:34:59 2019
+
+@author: gabin
+"""
+
+
+import time
+import math as m
+import json
+import numpy as np
+import space as sp
+
+
+import multiprocessing as mp
+
+def json_extracter(data): #data should be a string like : 'data.json', the function returns data and events
+    with open(data) as json_file:  
+        data = json.load(json_file)
+        events=data['events']
+    return(data,events)
+
+#match_data,events=json_extracter('/Volumes/NO NAME/0021500001.json')
+
+
+
+def distance_difference(mom_infos,b):
+    'distance difference between closest player of each team to the point b'
+    
+    dmin1=np.inf
+    
+    for player in mom_infos['team1'].keys():
+        a=mom_infos['team1'][player]['xy']
+        d=distance(a,b)
+        if d<dmin1:
+            dmin1=d
+            
+    dmin2=np.inf
+            
+    for player in mom_infos['team2'].keys():
+        a=mom_infos['team2'][player]['xy']
+        d=distance(a,b)
+        if d<dmin2:
+            dmin2=d
+            
+    return(dmin1-dmin2)
+
+def distance(a,b):      #a = (x,y) departure point ; b = (i,j) arrival point
+    return m.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+
+#class my_thread(Thread):
+#
+#    """Thread chargé simplement d'afficher une lettre dans la console."""
+#
+#    def __init__(self, i,j,mom_infos,DELTA_X):
+#        Thread.__init__(self)
+#        self.b = np.array([j,i])
+#        self.mom_infos= mom_infos
+#        self.DELTA_X=DELTA_X
+#        self.name="thread_"+str(i)+str(j)
+#
+#    def run(self):
+#        self
+#        
+#        for i in range(500):
+#            for j in range(94):
+#            
+#                DELTA_X[i][j]=dmin1-dmin2
+
+moments=events[2]['moments'][:2]    
+      
+def distance_diff_matrix(mom_infos):
+    for i in range(50):
+        for j in range(94):
+            b=np.array([j,i])
+            D_X[i][j]=distance_difference(mom_infos,b)
+    return
+
+def time_diff_matrix(mom_infos):
+    D_T=np.zeros([10,94])
+    for i in range(10):
+        for j in range(94):
+            b=np.array([j,i])
+            D_T[i][j]=time_difference(mom_infos,b)
+    return D_T
+    
+
+def time_difference(mom_infos,b):
+    
+    tmin_1=np.inf
+    for player in mom_infos['team1'].keys():
+        a=mom_infos['team1'][player]['xy']
+        v=mom_infos['team1'][player]['v']
+        t=time_to_point(a,b,v)
+        if t<tmin_1:
+            tmin_1=t
+                    
+    tmin_2=np.inf
+    for player in mom_infos['team2'].keys():
+        a=mom_infos['team2'][player]['xy']
+        v=mom_infos['team2'][player]['v']
+        t=time_to_point(a,b,v)
+        if t<tmin_2:
+            tmin_2=t
+    
+    return(tmin_1-tmin_2)
+
+
+
+deb2=time.time()
+DELTA_X2=np.zeros([len(moments)-1,10,94])
+for l in range(10):
+    for k in range(len(moments)-1):
+        mom1=moments[k]
+        mom2=moments[k+1]
+        mom_infos=sp.players_ball_speed_position(mom1,mom2)
+        for i in range(10):
+            for j in range(94):
+                b=np.array([j,i])
+                DELTA_X2[k][i][j]=time_difference(mom_infos,b)
+print(time.time()-deb2)
+
+def test_pool(MOM_INFOS):
+    pool = mp.Pool()
+        #manager = multiprocessing.Manager()
+        
+        #DELTA_X=manager.list(np.zeros(len(moments)-1))
+        
+        #for k in range(len(moments)-1):
+            #p=multiprocessing.Process(target=distance_diff_matrix, args=(MOM_INFOS[k],DELTA_X[k]))
+    results = pool.map(time_diff_matrix, MOM_INFOS)
+        #results2=pool.map(time_diff_matrix, MOM_INFOS)
+            #close the pool and wait for the work to finish
+            #processes.append(p)
+            #p.start()
+    pool.close()
+    pool.join()
+    return(results)
+
+def test():
+    deb=time.time()
+    MOM_INFOS=[]
+    for k in range(len(moments)-1):
+        mom1=moments[k]
+        mom2=moments[k+1]
+        MOM_INFOS.append(sp.players_ball_speed_position(mom1,mom2))
+    
+    processes=[]
+    if __name__ == '__main__':
+        for k in range(10):
+            result=test_pool(MOM_INFOS)
+        #for process in processes:
+            #process.join()
+    print(time.time()-deb)
+    return(result)
+

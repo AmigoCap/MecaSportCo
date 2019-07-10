@@ -24,33 +24,59 @@ def voronoi(events,event_id,mom_id):
 
 def players_ball_speed_position(moment1,moment2):
     
-    dt=0.04
+    dt=moment1[2]-moment2[2]
+    
     mom_infos={}
     mom_infos['ball']={}
     mom_infos['team1']={}
     mom_infos['team2']={}
     for i in range(11) :
         if i==0:
-            mom_infos['ball']['xy']=np.array(moment1[i][2:4])
-            mom_infos['ball']['z']=moment1[i][4]
-            mom_infos['ball']['v']=np.array([(moment2[i][2]-moment1[i][2])/dt,(moment2[i][3]-moment1[i][3])/dt])
+            mom_infos['ball']['xy']=np.array(moment1[5][i][2:4])
+            mom_infos['ball']['z']=moment1[5][i][4]
+            mom_infos['ball']['v']=np.array([(moment2[5][i][2]-moment1[5][i][2])/dt,(moment2[5][i][3]-moment1[5][i][3])/dt])
         if 6<=i<=11:
-            mom_infos['team2'][str(moment1[i][1])]={'xy':np.array(moment1[i][2:4]),'v':np.array([(moment2[i][2]-moment1[i][2])/dt,(moment2[i][3]-moment1[i][3])/dt])}
+            mom_infos['team2'][str(moment1[5][i][1])]={'xy':np.array(moment1[5][i][2:4]),'v':np.array([(moment2[5][i][2]-moment1[5][i][2])/dt,(moment2[5][i][3]-moment1[5][i][3])/dt])}
         if 1<=i<=5:
-            mom_infos['team1'][str(moment1[i][1])]={'xy':np.array(moment1[i][2:4]),'v':np.array([(moment2[i][2]-moment1[i][2])/dt,(moment2[i][3]-moment1[i][3])/dt])}
+            mom_infos['team1'][str(moment1[5][i][1])]={'xy':np.array(moment1[5][i][2:4]),'v':np.array([(moment2[5][i][2]-moment1[5][i][2])/dt,(moment2[5][i][3]-moment1[5][i][3])/dt])}
     return(mom_infos)
 
 def distance(a,b):      #a = (x,y) departure point ; b = (i,j) arrival point
     return m.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+
+def distance_difference(mom_infos,b):
+    'distance difference between closest player of each team to the point b'
+    
+    dmin1=np.inf
+    
+    for player in mom_infos['team1'].keys():
+        a=mom_infos['team1'][player]['xy']
+        d=distance(a,b)
+        if d<dmin1:
+            dmin1=d
+            
+    dmin2=np.inf
+            
+    for player in mom_infos['team2'].keys():
+        a=mom_infos['team2'][player]['xy']
+        d=distance(a,b)
+        if d<dmin2:
+            dmin2=d
+            
+    return(dmin1-dmin2)
+
+
+
+
 
 def print_court_teams_occupation(events,event_id,mom_id,voronoi_cut=False,value=False,n=50,p=94):
     "This function return a visualization of the court for the moment mom_id of the event event_id. If voronoi_cut=True, voronoi cutting is plotted. Then, if value=True, a heat-map giving a value to space occupation is drawn."
     if voronoi_cut:
         voronoi(events,event_id,mom_id)
     event=events[event_id]
-    moment=event['moments'][mom_id][5]
+    moment=event['moments'][mom_id]
     moment1=moment
-    moment2=event['moments'][mom_id+1][5]
+    moment2=event['moments'][mom_id+1]
     
     # separation of ball, team1 and team2 and calculation of the speed
     mom_infos=players_ball_speed_position(moment1,moment2)
@@ -68,21 +94,8 @@ def print_court_teams_occupation(events,event_id,mom_id,voronoi_cut=False,value=
         for i in range(n):
             for j in range(p):
                 b=np.array([j,i]) # point d'arrivée
-            
-                dmin_1=np.inf
-                for player in mom_infos['team1'].keys():
-                    a=mom_infos['team1'][player]['xy']
-                    d=distance(a,b)
-                    if d<dmin_1:
-                        dmin_1=d
-                    
-                dmin_2=np.inf
-                for player in mom_infos['team2'].keys():
-                    a=mom_infos['team2'][player]['xy']
-                    d=distance(a,b)
-                    if d<dmin_2:
-                        dmin_2=d
-                court[i,j]=dmin_1-dmin_2
+                court[i,j]=distance_difference(mom_infos,b)
+                
         im=plt.imshow(court,origin='lower', cmap='RdBu')
         #plt.colorbar(orientation='vertical')
         
@@ -111,14 +124,35 @@ def time_to_point(a,b,v,F=10*3.281):
                 return times[i].real
     print('error')
     
+    
+def time_difference(mom_infos,b):
+    
+    tmin_1=np.inf
+    for player in mom_infos['team1'].keys():
+        a=mom_infos['team1'][player]['xy']
+        v=mom_infos['team1'][player]['v']
+        t=time_to_point(a,b,v)
+        if t<tmin_1:
+            tmin_1=t
+                    
+    tmin_2=np.inf
+    for player in mom_infos['team2'].keys():
+        a=mom_infos['team2'][player]['xy']
+        v=mom_infos['team2'][player]['v']
+        t=time_to_point(a,b,v)
+        if t<tmin_2:
+            tmin_2=t
+    
+    return(tmin_1-tmin_2)
+    
 def print_court_teams_occupation_inertia(events,event_id,mom_id,voronoi_cut=False,n=50,p=94):
     "This function return a visualization of the court for the moment mom_id of the event event_id. If voronoi_cut=True, voronoi cutting is plotted. Then, if value=True, a heat-map giving a value to space occupation is drawn."
     if voronoi_cut:
         voronoi(events,event_id,mom_id)
     event=events[event_id]
-    moment=event['moments'][mom_id][5]
+    moment=event['moments'][mom_id]
     moment1=moment
-    moment2=event['moments'][mom_id+1][5]
+    moment2=event['moments'][mom_id+1]
     
     # separation of ball, team1 and team2 and calculation of the speed
     mom_infos=players_ball_speed_position(moment1,moment2)
@@ -135,24 +169,10 @@ def print_court_teams_occupation_inertia(events,event_id,mom_id,voronoi_cut=Fals
     for i in range(n):
         for j in range(p):
             b=np.array([j,i]) # point d'arrivée
-        
-            tmin_1=np.inf
-            for player in mom_infos['team1'].keys():
-                a=mom_infos['team1'][player]['xy']
-                v=mom_infos['team1'][player]['v']
-                t=time_to_point(a,b,v)
-                if t<tmin_1:
-                    tmin_1=t
-                    
-            tmin_2=np.inf
-            for player in mom_infos['team2'].keys():
-                a=mom_infos['team2'][player]['xy']
-                v=mom_infos['team2'][player]['v']
-                t=time_to_point(a,b,v)
-                if t<tmin_2:
-                    tmin_2=t
             
-            court[i,j]=tmin_1-tmin_2
+            court[i,j]=time_difference(mom_infos,b)
+            
+            
     im=plt.imshow(court,origin='lower', cmap='RdBu')
     #plt.colorbar(orientation='vertical')
         
