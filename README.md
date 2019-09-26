@@ -13,9 +13,9 @@ The dataset we use is derived from ***Stats*** company data and *SportsVU* techn
 
 ## Work done
 
-* 
-* [2_time_calculation](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/2_Time_calculation.ipynb) where we detail time calculation and where we explain visually the trajectories modelized by the calculation
-* [3_Comparison_of_ways_to_quantify_free_space](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/3_Comparison_of_ways_to_quantify_free_space.ipynb) in which the comparison of occupancy calculations is taken further and in which a new way to quantify how "free" a players is is introduced.
+* [1_Introduction_to_space_occupation](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/1_Introduction_to_space_occupation.ipynb)
+* [2_time_calculation](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/2_Time_calculation.ipynb) where we detail a way to model players'trajectories and how to calcul time needed for a player to go from a point a to b with a given initial velocity.
+* [3_Comparison_of_ways_to_quantify_free_space](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/3_Comparison_of_ways_to_quantify_free_space.ipynb) in which the comparison of occupancy calculations is taken further and in which a new way to quantify how "free" a player is is introduced.
 * [4_Free_space_and_3-points_efficiency](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/4_Free_space_and_3-points_efficiency.ipynb) in which we focus on 3-points shot and the link between efficiency and free-space.
 
 ## Bibliography
