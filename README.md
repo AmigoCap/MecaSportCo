@@ -11,7 +11,7 @@ The aim of this study is to quantify how "free" a basketball player is and how t
 The dataset we use is derived from ***Stats*** company data and *SportsVU* technology. These are the 632 men's basketball games in the NBA between the 2013-2014 and 2016-2017 seasons. For each match we have the movement data for the ball and players taken 25 times per second and stored in the form _JavaScript Object Notation_ (JSON). The following figure shows the general structure of the data:  
 ![dataschema](https://github.com/AmigoCap/MecaFootCo/blob/master/Images/data.jpg "data schema")
 
-## Work done
+## Work performed
 
 * [1_Introduction_to_space_occupation](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/1_Introduction_to_space_occupation.ipynb)
 * [2_time_calculation](https://nbviewer.jupyter.org/github/AmigoCap/MecaFootCo/blob/master/2_Time_calculation.ipynb) where we detail a way to model players'trajectories and how to calcul time needed for a player to go from a point a to b with a given initial velocity.
