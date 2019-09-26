@@ -1,12 +1,12 @@
-# Bibliographie commentée
+# Bibliography
 
-## Définition du sujet 
+## Subject definition
 
 - Définition des critères de performance. L'article [1] définit et classe les différents indicateurs qui permettent de caractériser les perfomances au football. Il définit en particulier les variables relatives aux passes qui sont le sujet de notre recherche (nombre, précision, type de passe, zones de passe, interceptions). On pourra s'inspirer de cette démarche pour définir les variables caractérisant les passes au Basket. 
 
 [1] « Performance analysis », footballscience.net | Soccer, Football, Training, Testing, Recovery, Injury Prevention, Conditioning and other interesting topics. [En ligne]. Disponible sur: http://www.footballscience.net/special-topics/performance-analysis/. [Consulté le: 02-déc-2018].
 
-## Utilisation des données
+## Data
 
 Les données sont composées de 632 matchs de Basket de NBA lors de la saison 2015. Pour chaque match nous disposons de la position des joueurs de chaque équipe et du ballon au format json. Ces données sont stockées par "moments" qui contiennent chacun une phase de jeu du match. Il est possible de récupérer le flux vidéo associé à chaque moment à l'adresse https://stats.nba.com/schedule/.
 Les deux liens [2] et [3] expliquent comment sont organisées les données de chaque match et comment faire un début d'exploitation de celles-ci sous python.
@@ -95,6 +95,27 @@ L’étude des écoulements turbulents des particules fluides montre que la ge
 
 [18] Wouter J. T. Bos Benjamin Kadoch and Kai Schneider. Directional change of fluid particles in two-dimensional turbulence and of football players. Physical Review Fluids, June 2017.
 
+## To annotate
+
+	https://github.com/topics/nba-data
+	https://github.com/ccagrawal/nbaTools
+	https://hwchase17.github.io/sportvu/
+	https://arxiv.org/ftp/arxiv/papers/1703/1703.07030.pdf
+	https://github.com/rajshah4/NBA_SportVu help to treat nba play by play and Sports Vu in R
+	http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html Merging Sports Vu and play by play
+	https://www.inpredictable.com/2015/05/introducing-sharc-shot-arc-analysis.html Shot arc analysis => analysis of the trajectory of the ball
+	https://stackoverflow.com/questions/12965203/how-to-get-json-from-webpage-into-python-script
+	https://rpubs.com/jalapic/nbaplaybyplay
+	https://github.com/rd11490/NBA-Play-By-Play-Example/blob/master/scrape_example.py
+	http://nbasense.com/nba-api/Stats/Stats/Game/PlayByPlay#request-code-usage
+	https://www.tandfonline.com/doi/abs/10.1080/24748668.2013.11868640
+	https://sci-hub.tw/https://dl.acm.org/citation.cfm?id=3054132
+	https://messagerie.ec-lyon.fr/service/home/~/?auth=co&loc=fr&id=10090&part=2
+	http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=89086&copyownerid=49896
+	https://dtai.cs.kuleuven.be/events/MLSA18/index.php
+	https://chyronhego.com/solutions/
+	http://www.yisongyue.com/publications/ssac2014_open_shot.pdf
+	https://sci-hub.tw/https://ieeexplore.ieee.org/abstract/document/852338
 
 
 
