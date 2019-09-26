@@ -2,14 +2,14 @@
 
 ## Introduction
 
-L'analyse de données devient essentielle dans le sport et est de plus en plus développée. Le principe est de collecter diverses données et de les analyser afin d'effectuer des prédictions ou d'améliorer les performances à la fois collectives et individuelles des joueurs. De nombreuses startups se créent et proposent leurs services aux professionnels et amateurs. Cette pratique est utilisée par des sportifs de haut niveau comme par exemple l'équipe de football d'Allemagne qui a eu recourt à toutes les données disponibles sur leurs matchs pour se préparer à la coupe du monde de football 2014 qu'elle a par ailleurs remportée. On comprend donc ici l'importance de s'intéresser à cette activité, d'autant plus que la mise à disposition des données étant récente, tout n'a pas été exploré et un large champ de recherche est possible.
+The aim of this study is to quantify how "free" a basketball player is and how this influences his 3-points shot performance.
 
-De plus l'exploitation de ces données d'un point de vue autre que sportif peut s'avérer pertinent comme c'est le cas dans l'article Directional change of fluid particles in two-dimensional turbulence and of football players, *Physical Review Fluids*, June 2017 de Wouter J. T. Bos Benjamin Kadoch and Kai Schneider, qui illustre l'existence de certaines corrélations entre les mouvements de joueurs de football sur un terrain et des particules sur ce même terrain. C'est dans ce cadre qu'a été créé le PAr MécaSportCo lancé en 2017 afin de caractériser les mouvements de sportifs tout en cherchant à vérifier ces corrélations. Un premier travail a été effectué par Marc Louis Mattis et Alfonso García Hernández. Ce projet a été reconduit en 2018. Nous nous sommes concentrés sur le basket-ball, avec pour objectif de développer un modèle visuel de caractérisation de l'occupation d'espace par les joueurs. Puis nous avons menés une étude plus quantitative permettant de voir l'influence de l'espace disponible pour un joueur dans sa réussite à 3-points.
+## Data
 
-## Les données
-
-Le jeu de données que nous utilisons est issu des données de l'entreprise ***Stats*** et de la technologie *SportsVU*. Celles-ci sont celles de 632 matchs de basket masculin en NBA enntre les saisons 2013-2014 et 2016-2017. Pour chaque match nous possédons les données de mouvement pour le ballon et les joueurs pris 25 fois par seconde et stockés sous forme _JavaScript Object Notation_ (JSON). La figure suivante présente la structure générale des données : 
+The dataset we use is derived from ***Stats*** company data and *SportsVU* technology. These are the 632 men's basketball games in the NBA between the 2013-2014 and 2016-2017 seasons. For each match we have the movement data for the ball and players taken 25 times per second and stored in the form _JavaScript Object Notation_ (JSON). The following figure shows the general structure of the data:  
 ![dataschema](https://github.com/AmigoCap/MecaFootCo/blob/master/Images/data.jpg "data schema")
 
-## Le travail réalisé
+## Work done
+
+## Bibliography
 
