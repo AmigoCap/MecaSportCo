@@ -2,6 +2,8 @@
 
 ## Introduction
 
+Today, technology is increasingly used in sport. Indeed, the players' statistics are more and more accurate and more and more numerous. Clubs employ people to acquire data and use it to improve performance. It is in this context that the MecaSportCo Research Application Project, conducted at the **Ecole Centrale de Lyon** by *Gabin Rolland* and *Nathan Rivière*, under the supervision of *Wouter Bos* and *Romain Vuillemot*. 
+
 The aim of this study is to quantify how "free" a basketball player is and how this influences his 3-points shot performance.
 
 ## Data
