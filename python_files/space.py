@@ -25,7 +25,6 @@ def voronoi(events,event_id,mom_id):
 def players_ball_speed_position(moment1,moment2):
     
     dt=moment1[2]-moment2[2]
-    
     mom_infos={}
     mom_infos['ball']={}
     mom_infos['team1']={}
@@ -65,11 +64,7 @@ def distance_difference(mom_infos,b):
             
     return(dmin1-dmin2)
 
-
-
-
-
-def print_court_teams_occupation(events,event_id,mom_id,voronoi_cut=False,value=False,n=50,p=94):
+def print_court_teams_occupation(events,event_id,mom_id,voronoi_cut=False,value=False,player_info=False,n=50,p=94):
     "This function return a visualization of the court for the moment mom_id of the event event_id. If voronoi_cut=True, voronoi cutting is plotted. Then, if value=True, a heat-map giving a value to space occupation is drawn."
     if voronoi_cut:
         voronoi(events,event_id,mom_id)
@@ -81,21 +76,48 @@ def print_court_teams_occupation(events,event_id,mom_id,voronoi_cut=False,value=
     # separation of ball, team1 and team2 and calculation of the speed
     mom_infos=players_ball_speed_position(moment1,moment2)
     
+    ind=1
     for player in mom_infos['team2'].keys():
-        plt.plot(mom_infos['team2'][player]['xy'][0],mom_infos['team2'][player]['xy'][1],'bo',markersize=12,alpha=0.6)
-        plt.arrow(mom_infos['team2'][player]['xy'][0],mom_infos['team2'][player]['xy'][1],mom_infos['team2'][player]['v'][0],mom_infos['team2'][player]['v'][1],shape='full',lw=1.5,head_width=1)
+        x=mom_infos['team2'][player]['xy'][0]
+        y=mom_infos['team2'][player]['xy'][1]
+        vx=mom_infos['team2'][player]['v'][0]
+        vy=mom_infos['team2'][player]['v'][1]
+        plt.plot(x,y,'bo',markersize=12,alpha=0.6)
+        plt.arrow(x,y,vx,vy,shape='full',lw=1.5,head_width=1)
+        if player_info:
+            plt.annotate(str(ind),(x,y),xytext=(3,3),textcoords='offset points')
+            ind+=1
     
     for player in mom_infos['team1'].keys():
-        plt.plot(mom_infos['team1'][player]['xy'][0],mom_infos['team1'][player]['xy'][1],'ro',markersize=12,alpha=0.6)
-        plt.arrow(mom_infos['team1'][player]['xy'][0],mom_infos['team1'][player]['xy'][1],mom_infos['team1'][player]['v'][0],mom_infos['team1'][player]['v'][1],shape='full',lw=1.5,head_width=1)
-    
+        x=mom_infos['team1'][player]['xy'][0]
+        y=mom_infos['team1'][player]['xy'][1]
+        vx=mom_infos['team1'][player]['v'][0]
+        vy=mom_infos['team1'][player]['v'][1]
+        plt.plot(x,y,'ro',markersize=12,alpha=0.6)
+        plt.arrow(x,y,vx,vy,shape='full',lw=1.5,head_width=1)
+        if player_info:
+            plt.annotate(str(ind),(x,y),xytext=(3,3),textcoords='offset points')
+            ind+=1
     if value:
         court=np.zeros((n,p))
         for i in range(n):
             for j in range(p):
                 b=np.array([j,i]) # point d'arrivée
-                court[i,j]=distance_difference(mom_infos,b)
-                
+            
+                dmin_1=np.inf
+                for player in mom_infos['team1'].keys():
+                    a=mom_infos['team1'][player]['xy']
+                    d=distance(a,b)
+                    if d<dmin_1:
+                        dmin_1=d
+                    
+                dmin_2=np.inf
+                for player in mom_infos['team2'].keys():
+                    a=mom_infos['team2'][player]['xy']
+                    d=distance(a,b)
+                    if d<dmin_2:
+                        dmin_2=d
+                court[i,j]=dmin_1-dmin_2
         im=plt.imshow(court,origin='lower', cmap='RdBu')
         #plt.colorbar(orientation='vertical')
         
@@ -105,7 +127,7 @@ def print_court_teams_occupation(events,event_id,mom_id,voronoi_cut=False,value=
     field = plt.imread("Images/fullcourt.png")
     plt.imshow(field, extent=[0,94,0,50])
     plt.show()
-    
+
 def time_to_point(a,b,v,F=10*3.281):   
     "time to go from a to b with initial speed v, F is the force parameter in feet/s-2"
     x0,y0=a
@@ -120,10 +142,9 @@ def time_to_point(a,b,v,F=10*3.281):
     times=np.roots([k4,k3,-k2,-k1,-k0])
     for i in range(4):                      # Selection of the root real and positive
         if times[i].imag==0:
-            if times[i].real>0:
+            if times[i].real>=0:
                 return times[i].real
     print('error')
-    
     
 def time_difference(mom_infos,b):
     
@@ -145,7 +166,7 @@ def time_difference(mom_infos,b):
     
     return(tmin_1-tmin_2)
     
-def print_court_teams_occupation_inertia(events,event_id,mom_id,voronoi_cut=False,n=50,p=94):
+def print_court_teams_occupation_inertia(events,event_id,mom_id,voronoi_cut=False,player_info=False,n=50,p=94):
     "This function return a visualization of the court for the moment mom_id of the event event_id. If voronoi_cut=True, voronoi cutting is plotted. Then, if value=True, a heat-map giving a value to space occupation is drawn."
     if voronoi_cut:
         voronoi(events,event_id,mom_id)
@@ -157,22 +178,51 @@ def print_court_teams_occupation_inertia(events,event_id,mom_id,voronoi_cut=Fals
     # separation of ball, team1 and team2 and calculation of the speed
     mom_infos=players_ball_speed_position(moment1,moment2)
     
+    ind=1
     for player in mom_infos['team2'].keys():
-        plt.plot(mom_infos['team2'][player]['xy'][0],mom_infos['team2'][player]['xy'][1],'bo',markersize=12,alpha=0.6)
-        plt.arrow(mom_infos['team2'][player]['xy'][0],mom_infos['team2'][player]['xy'][1],mom_infos['team2'][player]['v'][0],mom_infos['team2'][player]['v'][1],shape='full',lw=1.5,head_width=1)
+        x=mom_infos['team2'][player]['xy'][0]
+        y=mom_infos['team2'][player]['xy'][1]
+        vx=mom_infos['team2'][player]['v'][0]
+        vy=mom_infos['team2'][player]['v'][1]
+        plt.plot(x,y,'bo',markersize=12,alpha=0.6)
+        plt.arrow(x,y,vx,vy,shape='full',lw=1.5,head_width=1)
+        if player_info:
+            plt.annotate(str(ind),(x,y),xytext=(3,3),textcoords='offset points')
+            ind+=1
     
     for player in mom_infos['team1'].keys():
-        plt.plot(mom_infos['team1'][player]['xy'][0],mom_infos['team1'][player]['xy'][1],'ro',markersize=12,alpha=0.6)
-        plt.arrow(mom_infos['team1'][player]['xy'][0],mom_infos['team1'][player]['xy'][1],mom_infos['team1'][player]['v'][0],mom_infos['team1'][player]['v'][1],shape='full',lw=1.5,head_width=1)
-    
+        x=mom_infos['team1'][player]['xy'][0]
+        y=mom_infos['team1'][player]['xy'][1]
+        vx=mom_infos['team1'][player]['v'][0]
+        vy=mom_infos['team1'][player]['v'][1]
+        plt.plot(x,y,'ro',markersize=12,alpha=0.6)
+        plt.arrow(x,y,vx,vy,shape='full',lw=1.5,head_width=1)
+        if player_info:
+            plt.annotate(str(ind),(x,y),xytext=(3,3),textcoords='offset points')
+            ind+=1
+            
     court=np.zeros((n,p))
     for i in range(n):
         for j in range(p):
             b=np.array([j,i]) # point d'arrivée
+        
+            tmin_1=np.inf
+            for player in mom_infos['team1'].keys():
+                a=mom_infos['team1'][player]['xy']
+                v=mom_infos['team1'][player]['v']
+                t=time_to_point(a,b,v)
+                if t<tmin_1:
+                    tmin_1=t
+                    
+            tmin_2=np.inf
+            for player in mom_infos['team2'].keys():
+                a=mom_infos['team2'][player]['xy']
+                v=mom_infos['team2'][player]['v']
+                t=time_to_point(a,b,v)
+                if t<tmin_2:
+                    tmin_2=t
             
-            court[i,j]=time_difference(mom_infos,b)
-            
-            
+            court[i,j]=tmin_1-tmin_2
     im=plt.imshow(court,origin='lower', cmap='RdBu')
     #plt.colorbar(orientation='vertical')
         
