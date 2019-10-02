@@ -116,6 +116,7 @@ L’étude des écoulements turbulents des particules fluides montre que la ge
 	https://chyronhego.com/solutions/
 	http://www.yisongyue.com/publications/ssac2014_open_shot.pdf
 	https://sci-hub.tw/https://ieeexplore.ieee.org/abstract/document/852338
+https://www.vice.com/en_au/article/pgj338/numbers-game-how-spatial-analytics-killed-the-mid-range-jump-shot 
 
 
 
