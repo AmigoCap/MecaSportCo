@@ -370,7 +370,7 @@ def track_shots(data):
 #TIME_ABSCISSE=[]
 
 #match_number=0
-#for k in range(629,638):
+#for k in range(638):
 #    os.chdir('/Volumes/My Passport/GABIN/Documents/CENTRALE_LYON_1A/PaR/Basket/')
 #    if k<10:
 #        if ('002150000'+str(k)+'.json') in os.listdir():

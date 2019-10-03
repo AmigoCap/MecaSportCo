@@ -241,3 +241,59 @@ def print_court_teams_occupation_inertia(events,event_id,mom_id,voronoi_cut=Fals
     field = plt.imread("Images/fullcourt.png")
     plt.imshow(field, extent=[0,94,0,50])
     plt.show()
+
+def test_moment(moment): #looking if there is the ball and 10 players
+    if len(moment[5])!=11:
+        return(False)
+    for i in range(len(moment[5])):
+        if len(moment[5][i])!=5:
+            return (False)
+    return(True)
+
+def distance_closest_opponent(moment,player_id):
+    
+    dmin=np.inf
+    team_player=0
+    players=moment[5]
+    player=None
+    
+    for k in range(len(players)):
+        if players[k][1]==player_id:
+            team_player=players[k][0]
+            player=players[k][2:4]
+            
+    for k in range(len(players)):
+        if players[k][0]!=team_player and players[k][0]!=-1:
+            d=distance(players[k][2:4],player)
+            if d<dmin:
+                dmin=d
+            
+    return(dmin)
+
+def time_closest_opponent(moment1,moment2,player_id):
+    
+    tmin=np.inf
+    team_player=0
+    players=moment1[5]
+    players2=moment2[5]
+    player=None
+    
+    for k in range(len(players)):
+        if players[k][1]==player_id:
+            team_player=players[k][0]
+            player=players[k][2:4]
+    
+    dt=moment1[2]-moment2[2]
+    for k in range(len(players)):
+        if players[k][0]!=team_player and players[k][0]!=-1:
+            for l in range(len(players2)):
+                if players2[l][1]==players[k][1]:
+                    if dt==0:
+                        v=[0,0]
+                    else:
+                        v=[(players2[l][2]-players[k][2])/dt,(players2[l][3]-players[k][3])/dt]
+                    t=time_to_point(players[k][2:4],player,v)
+                    if t<tmin:
+                        tmin=t
+            
+    return(tmin)
