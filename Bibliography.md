@@ -1,21 +1,28 @@
 # Bibliography
 
-## Subject definition
-
-- Définition des critères de performance. L'article [1] définit et classe les différents indicateurs qui permettent de caractériser les perfomances au football. Il définit en particulier les variables relatives aux passes qui sont le sujet de notre recherche (nombre, précision, type de passe, zones de passe, interceptions). On pourra s'inspirer de cette démarche pour définir les variables caractérisant les passes au Basket. 
-
-[1] « Performance analysis », footballscience.net | Soccer, Football, Training, Testing, Recovery, Injury Prevention, Conditioning and other interesting topics. [En ligne]. Disponible sur: http://www.footballscience.net/special-topics/performance-analysis/. [Consulté le: 02-déc-2018].
-
 ## Data
 
-Les données sont composées de 632 matchs de Basket de NBA lors de la saison 2015. Pour chaque match nous disposons de la position des joueurs de chaque équipe et du ballon au format json. Ces données sont stockées par "moments" qui contiennent chacun une phase de jeu du match. Il est possible de récupérer le flux vidéo associé à chaque moment à l'adresse https://stats.nba.com/schedule/.
+Les données sont composées de 632 matchs de Basket de NBA. Pour chaque match nous disposons de la position des joueurs de chaque équipe et du ballon au format json. Ces données sont stockées par "moments" qui contiennent chacun une phase de jeu du match. Il est possible de récupérer le descriptif du match ainsi que les flux vidéos associé à chaque moment à l'adresse [link](https://stats.nba.com/game/0021500061/playbyplay/?GameID=0021500061&GameEventID=303&mtype=pbpmovement&mtitle=West%202%27%20Cutting%20Layup%20Shot%20(10%20PTS)%20(Ginobili%204%20AST)%20during%20San%20Antonio%20Spurs%20@%20Minnesota%20Timberwolves%20-%20WEDNESDAY,%20DECEMBER%2023,%202015#play303~) changing *GameID* in the url to access the match you want.
 Les deux liens [2] et [3] expliquent comment sont organisées les données de chaque match et comment faire un début d'exploitation de celles-ci sous python.
 
 [2]	S. Tjortjoglou, « How to Track NBA Player Movements in Python », Savvas Tjortjoglou, 25-août-2015. [En ligne]. Disponible sur: http://savvastjortjoglou.com/nba-play-by-play-movements.html. [Consulté le: 28-oct-2018].
 
 [3]	« Exploring NBA SportVu Movement Data ». [En ligne]. Disponible sur: http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html. [Consulté le: 28-oct-2018].
 
-## Visualisation des données
+[A list of project based on NBA data](https://github.com/topics/nba-data)
+
+[Python package to scrap NBA data](https://github.com/seemethere/nba_py)
+
+[example of python code to scrap nba data](https://github.com/rd11490/NBA-Play-By-Play-Example/blob/master/scrape_example.py)
+
+[Code for exploring the NBA SportVu motion data in R and link to available data](http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html)
+
+[How to get JSON from webpage into Python script](https://stackoverflow.com/questions/12965203/how-to-get-json-from-webpage-into-python-script)
+
+[NBA API library](http://nbasense.com/nba-api/Stats/Stats/Game/PlayByPlay#request-code-usage)
+
+
+## Visualization
 
 ### Généralités
 
@@ -37,7 +44,7 @@ BKViz [6] est une interface d'analyse de données au Basket qui regroupe un gran
 
 ### CourtVision
 
-CourtVision [7] est un outil d'analyse pour la NBA qui permet de comparer visuellement les perfomances au shoots des différents joueurs de Basket. Il permet également de mettre en évidence les différents zones stratégiques pour les shoots sur un terrain de Basket.
+CourtVision [7] est un outil d'analyse pour la NBA qui permet de comparer visuellement les perfomances au shots des différents joueurs de Basket. Il permet également de mettre en évidence les différents zones stratégiques pour les shoots sur un terrain de Basket.
 
 [7] K. Goldsberry, « CourtVision: New Visual and Spatial Analytics for the NBA », p. 7, 2012.
 
@@ -49,11 +56,21 @@ L'article 6 détaille l'importance de combiner données et vidéos tout en indiq
 
 ## Modèle d'analyse des données
 
+### Focusing on the ball
+
+- This blog post [] developp a study of ball's trajectory during a shot. Then it focuses on the influence of the trajecory on freethrows efficiency.
+
+[] Raymond Cen, Harrison Chase, Carlos Pena-Lobel, et Daniel Silberwasser, « NBA Shot Prediction and Analysis by hwchase17 ». [En ligne]. Disponible sur: https://hwchase17.github.io/sportvu/. [Consulté le: 04-oct-2019]
+
 ### Autour de la prédiction 
 
 - L'article [9] présente une nouvelle métrique qui permet de caractériser une situation donnée en terme de possibilité de points marqués suite à cette action. Cette quantité est appelée EPV : Expected Possession Value. Le calcul de l'EPV se fait de manière statistique en prenant en compte une quantité finie de possibilité d'action pour le joueur en possession de la balle : dribbles, passes, shoots... 
 
 [9] D. Cervone, A. D’Amour, L. Bornn, et K. Goldsberry, « Predicting Points and Valuing Decisions in Real Time with NBA Optical Tracking Data », p. 9, 2014.
+
+- The aim of the project [] is to developp a model to determine the probability of each shot going in and then study the impact of different variables on shot efficiency.
+
+[] Raymond Cen, Harrison Chase, Carlos Pena-Lobel, et Daniel Silberwasser, « NBA Shot Prediction and Analysis by hwchase17 ». [En ligne]. Disponible sur: https://hwchase17.github.io/sportvu/. [Consulté le: 04-oct-2019].
 
 - L'article [10] détaille la démarche qui a permis d'obtenir une interface visuelle de prédiction de passe (http://projects.yisongyue.com/bballpredict/). Cette interface permet à l'utilisateur de placer lui-même les joueurs et le ballon sur le terrain et à partir de ceci on observe à l'aide de traits plus ou moins épais les probabilités de passe et de tir du joueur en possession de la balle. Le principe du calcul repose sur du machine learning expérimenté sur les données 2012-2013 de SportsVu.
 
@@ -61,6 +78,10 @@ L'article 6 détaille l'importance de combiner données et vidéos tout en indiq
 
 
 ### Autour de l'occupation d'espace
+
+- The analysis of motion data and space occupation is important as it contributed to the increase of 3-point shots (from few % in 1980 to 33,6% of total shots in 2018) and so the change of basketball strategies [].
+
+[]https://www.vice.com/en_au/article/pgj338/numbers-game-how-spatial-analytics-killed-the-mid-range-jump-shot 
 
 - L'utilisation de l'espace dans les sports collectifs comme le football est indispensable dans l'élaboration des stratégies par les entraineurs. Les principales clés de l'occupation d'espace sont : **l'intéraction entre joueurs, les zones d'influences des joueurs, les options de passe, les espaces libres**. L'article [11] étudie ces différents aspects en créant un modèle permettant de caractériser la zone d'influence des joueurs en prenant en compte leur vitesse. Á partir de ceci on peut déterminer des zones d'intéractions (intersection des zones d'influences). Les espaces libres sont d'autant plus autant au foot que les joueurs, tous rassemblés, n'occupent qu'une petite partie du terrain à un instant t. **L'article associe à un joueur un espace libre comme étant une zone pour laquelle il a une plus grande probabilité d'arriver en premier** en prenant en compte sa direction, sa vitesse et la distance. En ce qui concerne l'étude des passes, celle-ci est plus difficile puisqu'elle résulte d'un processus de décision complex. L'article soulève plusieurs critères pour caractériser le risque d'une passe : **la vitesse de la passe, la distance, le pression exercée sur les potentiels receveurs, la direction des passes et le fait d'éviter le bloc adverse.** Toutes ces études sont utilisées par l'article [12] qui présente une préocédure d'analyse d'une action en terme de passe. Dans un premier temps il sélectionne les possibilité de passes ayant un intérêt grâce aux critères précédents. Ensuite la procédure consiste à regarder si la passe se fait dans le camp adverse ou non. Puis si la passe est dans le camp adverse il s'agit de prendre en compte l'influence des joueurs adverses. Enfin la dernière phase consiste à analyser ce que les défenseurs auraient pu faire pour empêcher la passe. Une procédure similaire est mise en place pour décrire les passes dans les espaces libres.
 
@@ -89,6 +110,12 @@ L'article 6 détaille l'importance de combiner données et vidéos tout en indiq
 
 [17] G. Andrienko et al., « Visual analysis of pressure in football », Data Mining and Knowledge Discovery, vol. 31, no 6, p. 1793‑1839, nov. 2017.
 
+- The pressure exerced by defensive players on the shooter has an influence on shot efficiency [,]. So it is important for teams to try to get *open shots* to improve their efficiency. [] study which game strategies best lead to open shots for each team.
+
+[]	https://messagerie.ec-lyon.fr/service/home/~/?auth=co&loc=fr&id=10090&part=2
+
+[]http://www.yisongyue.com/publications/ssac2014_open_shot.pdf
+
 ###  Corrélation entre particules fluides et footballers. 
 
 L’étude des écoulements turbulents des particules fluides montre que la géométrie de l’espace dans lequel elles évoluent influe sur le changement de direction moyen. Il se trouve que la fonction de densité des changements de direction des joueurs de football sur un terrain de foot révèle une forme commune à celles de particules fluides confinées en 2D. Ainsi le comportement anisotrope et a priori non aléatoire des joueurs de foot n’a pas d’influence et seule la géométrie du domaine de limitation a un impact sur les changements de directions moyens.
@@ -97,26 +124,9 @@ L’étude des écoulements turbulents des particules fluides montre que la ge
 
 ## To annotate
 
-	https://github.com/topics/nba-data
-	https://github.com/ccagrawal/nbaTools
-	https://hwchase17.github.io/sportvu/
-	https://arxiv.org/ftp/arxiv/papers/1703/1703.07030.pdf
-	https://github.com/rajshah4/NBA_SportVu help to treat nba play by play and Sports Vu in R
-	http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html Merging Sports Vu and play by play
-	https://www.inpredictable.com/2015/05/introducing-sharc-shot-arc-analysis.html Shot arc analysis => analysis of the trajectory of the ball
-	https://stackoverflow.com/questions/12965203/how-to-get-json-from-webpage-into-python-script
-	https://rpubs.com/jalapic/nbaplaybyplay
-	https://github.com/rd11490/NBA-Play-By-Play-Example/blob/master/scrape_example.py
-	http://nbasense.com/nba-api/Stats/Stats/Game/PlayByPlay#request-code-usage
 	https://www.tandfonline.com/doi/abs/10.1080/24748668.2013.11868640
 	https://sci-hub.tw/https://dl.acm.org/citation.cfm?id=3054132
-	https://messagerie.ec-lyon.fr/service/home/~/?auth=co&loc=fr&id=10090&part=2
-	http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=89086&copyownerid=49896
-	https://dtai.cs.kuleuven.be/events/MLSA18/index.php
-	https://chyronhego.com/solutions/
-	http://www.yisongyue.com/publications/ssac2014_open_shot.pdf
 	https://sci-hub.tw/https://ieeexplore.ieee.org/abstract/document/852338
-https://www.vice.com/en_au/article/pgj338/numbers-game-how-spatial-analytics-killed-the-mid-range-jump-shot 
 
 
 
