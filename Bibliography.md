@@ -2,12 +2,12 @@
 
 ## Data
 
-Les données sont composées de 632 matchs de Basket de NBA. Pour chaque match nous disposons de la position des joueurs de chaque équipe et du ballon au format json. Ces données sont stockées par "moments" qui contiennent chacun une phase de jeu du match. Il est possible de récupérer le descriptif du match ainsi que les flux vidéos associé à chaque moment à l'adresse [link](https://stats.nba.com/game/0021500061/playbyplay/?GameID=0021500061&GameEventID=303&mtype=pbpmovement&mtitle=West%202%27%20Cutting%20Layup%20Shot%20(10%20PTS)%20(Ginobili%204%20AST)%20during%20San%20Antonio%20Spurs%20@%20Minnesota%20Timberwolves%20-%20WEDNESDAY,%20DECEMBER%2023,%202015#play303~) changing *GameID* in the url to access the match you want.
-Les deux liens [2] et [3] expliquent comment sont organisées les données de chaque match et comment faire un début d'exploitation de celles-ci sous python.
+The data consists of 632 NBA Basketball games. For each match we have the position of the players of each team and the ball in json format. This data is stored in "moments", each of which contains a game phase of the match. It is possible to retrieve the match description and the video feeds associated with each moment at the address [link](https://stats.nba.com/game/0021500061/playbyplay/?GameID=0021500061&GameEventID=303&mtype=pbpmovement&mtitle=West%202%27%20Cutting%20Layup%20Shot%20(10%20PTS)%20(Ginobili%204%20AST)%20during%20San%20Antonio%20Spurs%20@%20Minnesota%20Timberwolves%20-%20WEDNESDAY,%20DECEMBER%2023,%202015#play303~) changing *GameID* in the url to access the match you want.
+The two links[1] and[2] explain how the data for each game is organized and how to start using them under python.
 
-[2]	S. Tjortjoglou, « How to Track NBA Player Movements in Python », Savvas Tjortjoglou, 25-août-2015. [En ligne]. Disponible sur: http://savvastjortjoglou.com/nba-play-by-play-movements.html. [Consulté le: 28-oct-2018].
+[1]	S. Tjortjoglou, « How to Track NBA Player Movements in Python », Savvas Tjortjoglou, 25-août-2015. [En ligne]. Disponible sur: http://savvastjortjoglou.com/nba-play-by-play-movements.html. [Consulté le: 28-oct-2018].
 
-[3]	« Exploring NBA SportVu Movement Data ». [En ligne]. Disponible sur: http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html. [Consulté le: 28-oct-2018].
+[2]	« Exploring NBA SportVu Movement Data ». [En ligne]. Disponible sur: http://projects.rajivshah.com/sportvu/EDA_NBA_SportVu.html. [Consulté le: 28-oct-2018].
 
 [A list of project based on NBA data](https://github.com/topics/nba-data)
 
@@ -26,107 +26,114 @@ Les deux liens [2] et [3] expliquent comment sont organisées les données de ch
 
 ### Généralités
 
-La visualisation de données sportives peut prendre de nombreuses formes différentes. On peut représenter sous forme de graphique les statistiques de joueurs pour comparer leur performance sur différents critères. Cette représentation ne fait que restituer les informations qu’apporte les données brutes. On peut présenter ces données de manière plus concrètes en affichant des graphiques superposés au terrain de sport. Enfin il est également possible de visualiser les données directement sur les vidéos des phases de jeu concernées afin de faire un lien concret entre données et phase de jeu. L'article [4] fait un état de l'art détaillé de tous les travaux déjà réalisés autour de l'analyse de données sportives. 
+The visualization of sports data can take many different forms. Player statistics can be graphically represented to compare their performance on different criteria. This representation only reflects the information provided by the raw data. These data can be presented in a more concrete way by displaying graphs superimposed on the sports field. Finally, it is also possible to view the data directly on the videos of the game phases concerned in order to make a concrete link between the data and the game phase. Article[3] provides a detailed overview of all the work already carried out on the analysis of sports data.
 
-[4] C. Perin, R. Vuillemot, C. D. Stolper, J. T. Stasko, J. Wood, et S. Carpendale, « State of the Art of Sports Data Visualization », Computer Graphics Forum, vol. 37, juin 2018.
+[3] C. Perin, R. Vuillemot, C. D. Stolper, J. T. Stasko, J. Wood, et S. Carpendale, « State of the Art of Sports Data Visualization », Computer Graphics Forum, vol. 37, juin 2018.
 
 ### SoccerStories
 
-SoccerStories est une interface permettant de visualiser certaines phases de match de football. Cette interface peut s’avérer très utile en prenant en compte le fait que les données sous leur forme pure parlent peu. L’interviews d’experts confirment cette remarque puisque celles-ci révèlent que dans l’analyse du football il ne faut pas oublier le côté visuel et sélection de phases de jeu qui permettent de raconter une histoire. Nous pouvons tirer plusieurs inspirations de cette interface notamment les différents critères et curseurs présentés en les adaptant à nos propres critères ainsi que les différentes démarchent présentées dans l’article (interview d’experts, phase d’évaluation, description du sport…)
+SoccerStories is an interface to visualize certain phases of a football match. This interface can be very useful by taking into account the fact that data in its pure form speaks little. The interviews with experts confirm this remark since they reveal that in the analysis of football we must not forget the visual side and the selection of game phases that allow us to tell a story. We can draw several inspirations from this interface, in particular the different criteria and cursors presented by adapting them to our own criteria as well as the different approaches presented in the article (interviews with experts, evaluation phase, description of the sport...)
 
-[5] C. Perin, R. Vuillemot, et J.-D. Fekete, « SoccerStories: A Kick-off for Visual Soccer Analysis », IEEE Transactions on Visualization and Computer Graphics, vol. 19, no 12, p. 2506‑2515, déc. 2013.
+[4] C. Perin, R. Vuillemot, et J.-D. Fekete, « SoccerStories: A Kick-off for Visual Soccer Analysis », IEEE Transactions on Visualization and Computer Graphics, vol. 19, no 12, p. 2506‑2515, déc. 2013.
 
 ### BKViz
 
-BKViz [6] est une interface d'analyse de données au Basket qui regroupe un grand nombre d'outils d'analyses différents. Ainsi l'apport de cet outil réside dans le fait qu'il permet de naviguer entre les différentes données disponibles et les différents outils d'analyse d'une manière simple et efficace. 
+BKViz[5] is a Basketball data analysis interface that includes a large number of different analysis tools. Thus the contribution of this tool lies in the fact that it allows to navigate between the different available data and the different analysis tools in a simple and efficient way. 
 
-[6] A. G. Losada, R. Therón, et A. Benito Santos, « BKViz: A Basketball Visual Analysis Tool », IEEE Computer Graphics and Applications, vol. 36, p. 58‑68, nov. 2016.
+[5] A. G. Losada, R. Therón, et A. Benito Santos, « BKViz: A Basketball Visual Analysis Tool », IEEE Computer Graphics and Applications, vol. 36, p. 58‑68, nov. 2016.
 
 ### CourtVision
 
-CourtVision [7] est un outil d'analyse pour la NBA qui permet de comparer visuellement les perfomances au shots des différents joueurs de Basket. Il permet également de mettre en évidence les différents zones stratégiques pour les shoots sur un terrain de Basket.
+CourtVision[6] is an analysis tool for the NBA that allows you to visually compare the shots performance of different basketball players. It also highlights the different strategic areas for shoots on a basketball court.
 
-[7] K. Goldsberry, « CourtVision: New Visual and Spatial Analytics for the NBA », p. 7, 2012.
+[6] K. Goldsberry, « CourtVision: New Visual and Spatial Analytics for the NBA », p. 7, 2012.
 
 ### Combiner vidéo et analyse des données 
 
-L'article 6 détaille l'importance de combiner données et vidéos tout en indiquant différentes méthodes pour réaliser ceci. 
+Article [7] details the importance of combining data and video while indicating different methods to achieve this. 
 
-[8] M. Stein et al., « Bring It to the Pitch: Combining Video and Movement Data to Enhance Team Sport Analysis », IEEE Transactions on Visualization and Computer Graphics, vol. 24, no 1, p. 13‑22, janv. 2018.
+[7] M. Stein et al., « Bring It to the Pitch: Combining Video and Movement Data to Enhance Team Sport Analysis », IEEE Transactions on Visualization and Computer Graphics, vol. 24, no 1, p. 13‑22, janv. 2018.
 
 ## Modèle d'analyse des données
 
 ### Focusing on the ball
 
-- This blog post [] developp a study of ball's trajectory during a shot. Then it focuses on the influence of the trajecory on freethrows efficiency.
+- This blog post [8] developp a study of ball's trajectory during a shot. Then it focuses on the influence of the trajecory on freethrows efficiency.
 
-[] Raymond Cen, Harrison Chase, Carlos Pena-Lobel, et Daniel Silberwasser, « NBA Shot Prediction and Analysis by hwchase17 ». [En ligne]. Disponible sur: https://hwchase17.github.io/sportvu/. [Consulté le: 04-oct-2019]
+[8] Raymond Cen, Harrison Chase, Carlos Pena-Lobel, et Daniel Silberwasser, « NBA Shot Prediction and Analysis by hwchase17 ». [En ligne]. Disponible sur: https://hwchase17.github.io/sportvu/. [Consulté le: 04-oct-2019]
 
 ### Autour de la prédiction 
 
-- L'article [9] présente une nouvelle métrique qui permet de caractériser une situation donnée en terme de possibilité de points marqués suite à cette action. Cette quantité est appelée EPV : Expected Possession Value. Le calcul de l'EPV se fait de manière statistique en prenant en compte une quantité finie de possibilité d'action pour le joueur en possession de la balle : dribbles, passes, shoots... 
+- Article[9] presents a new metric that allows to characterize a given situation in terms of the possibility of points scored as a result of this action. This quantity is called EPV: Expected Possession Value. The EPV is calculated statistically by taking into account a finite quantity of action possibilities for the player in possession of the ball: dribbles, passes, shots...
 
 [9] D. Cervone, A. D’Amour, L. Bornn, et K. Goldsberry, « Predicting Points and Valuing Decisions in Real Time with NBA Optical Tracking Data », p. 9, 2014.
 
-- The aim of the project [] is to developp a model to determine the probability of each shot going in and then study the impact of different variables on shot efficiency.
+- The aim of the project [10] is to developp a model to determine the probability of each shot going in and then study the impact of different variables on shot efficiency.
 
-[] Raymond Cen, Harrison Chase, Carlos Pena-Lobel, et Daniel Silberwasser, « NBA Shot Prediction and Analysis by hwchase17 ». [En ligne]. Disponible sur: https://hwchase17.github.io/sportvu/. [Consulté le: 04-oct-2019].
+[10] Raymond Cen, Harrison Chase, Carlos Pena-Lobel, et Daniel Silberwasser, « NBA Shot Prediction and Analysis by hwchase17 ». [En ligne]. Disponible sur: https://hwchase17.github.io/sportvu/. [Consulté le: 04-oct-2019].
 
-- L'article [10] détaille la démarche qui a permis d'obtenir une interface visuelle de prédiction de passe (http://projects.yisongyue.com/bballpredict/). Cette interface permet à l'utilisateur de placer lui-même les joueurs et le ballon sur le terrain et à partir de ceci on observe à l'aide de traits plus ou moins épais les probabilités de passe et de tir du joueur en possession de la balle. Le principe du calcul repose sur du machine learning expérimenté sur les données 2012-2013 de SportsVu.
+- Article[11] details the process that led to the development of a visual pass prediction interface (http://projects.yisongyue.com/bballpredict/). This interface allows the user to place the players and the ball on the field himself and from this we observe by means of more or less thick lines the probabilities of passing and shooting of the player in possession of the ball. The principle of the calculation is based on machine learning experimented on the 2012-2013 SportsVu data.
 
-[10] Y. Yue, P. Lucey, P. Carr, A. Bialkowski, et I. Matthews, « Learning Fine-Grained Spatial Models for Dynamic Sports Play Prediction », in 2014 IEEE International Conference on Data Mining, Shenzhen, China, 2014, p. 670‑679.
+[11] Y. Yue, P. Lucey, P. Carr, A. Bialkowski, et I. Matthews, « Learning Fine-Grained Spatial Models for Dynamic Sports Play Prediction », in 2014 IEEE International Conference on Data Mining, Shenzhen, China, 2014, p. 670‑679.
 
 
 ### Autour de l'occupation d'espace
 
-- The analysis of motion data and space occupation is important as it contributed to the increase of 3-point shots (from few % in 1980 to 33,6% of total shots in 2018) and so the change of basketball strategies [].
+- This article [12] presents the state of the art of the various studies of spatio-temporal behaviour in team sports.
 
-[]https://www.vice.com/en_au/article/pgj338/numbers-game-how-spatial-analytics-killed-the-mid-range-jump-shot 
+[12] J. Gudmundsson et M. Horton, « Spatio-Temporal Analysis of Team Sports », ACM Comput. Surv., vol. 50, no 2, p. 22:1–22:34, avr. 2017.
 
-- L'utilisation de l'espace dans les sports collectifs comme le football est indispensable dans l'élaboration des stratégies par les entraineurs. Les principales clés de l'occupation d'espace sont : **l'intéraction entre joueurs, les zones d'influences des joueurs, les options de passe, les espaces libres**. L'article [11] étudie ces différents aspects en créant un modèle permettant de caractériser la zone d'influence des joueurs en prenant en compte leur vitesse. Á partir de ceci on peut déterminer des zones d'intéractions (intersection des zones d'influences). Les espaces libres sont d'autant plus autant au foot que les joueurs, tous rassemblés, n'occupent qu'une petite partie du terrain à un instant t. **L'article associe à un joueur un espace libre comme étant une zone pour laquelle il a une plus grande probabilité d'arriver en premier** en prenant en compte sa direction, sa vitesse et la distance. En ce qui concerne l'étude des passes, celle-ci est plus difficile puisqu'elle résulte d'un processus de décision complex. L'article soulève plusieurs critères pour caractériser le risque d'une passe : **la vitesse de la passe, la distance, le pression exercée sur les potentiels receveurs, la direction des passes et le fait d'éviter le bloc adverse.** Toutes ces études sont utilisées par l'article [12] qui présente une préocédure d'analyse d'une action en terme de passe. Dans un premier temps il sélectionne les possibilité de passes ayant un intérêt grâce aux critères précédents. Ensuite la procédure consiste à regarder si la passe se fait dans le camp adverse ou non. Puis si la passe est dans le camp adverse il s'agit de prendre en compte l'influence des joueurs adverses. Enfin la dernière phase consiste à analyser ce que les défenseurs auraient pu faire pour empêcher la passe. Une procédure similaire est mise en place pour décrire les passes dans les espaces libres.
+- The analysis of motion data and space occupation is important as it contributed to the increase of 3-point shots (from few % in 1980 to 33,6% of total shots in 2018) and so the change of basketball strategies [13].
 
-[11]	« (PDF) Director’s Cut: Analysis and Annotation of Soccer Matches », ResearchGate. [En ligne]. Disponible sur: https://www.researchgate.net/publication/308756859_Director’s_Cut_Analysis_and_Annotation_of_Soccer_Matches. [Consulté le: 01-nov-2018].
+[13](https://www.vice.com/en_au/article/pgj338/numbers-game-how-spatial-analytics-killed-the-mid-range-jump-shot) W. McCagh, « How Spatial Analytics Killed The Mid-Range Jump Shot », Vice, 26-sept-2016.
 
-[12] M. Stein et al., « Revealing the Invisible: Visual Analytics and Explanatory Storytelling for Advanced Team Sport Analysis », in 2018 International Symposium on Big Data Visual and Immersive Analytics (BDVA), Konstanz, 2018, p. 1‑9.
+- The use of space in team sports such as football is essential in the development of strategies by coaches. The main keys to space occupancy are: **interaction between players, player influence zones, pass options, free spaces**. Article[14] studies these different aspects by creating a model to characterize the players' area of influence by taking into account their speed. From this we can determine areas of interaction (intersection of influence zones). The open spaces are all the more so in football as the players, all together, occupy only a small part of the field at a given moment. **The article associates a player with a free space as an area for which he has a greater probability of arriving first** taking into account his direction, speed and distance. The study of the passes is more difficult because it is the result of a complex decision-making process. The article raises several criteria to characterize the risk of a pass: **The speed of the pass, the distance, the pressure exerted on the potential receivers, the direction of the passes and the fact of avoiding the opposing block... All these studies are used by the article[15] which presents a preocédure of analysis of an action in terms of pass. First, it selects the possibility of interesting passes using the previous criteria. Then the procedure consists in looking at whether the pass is made in the opposing side or not. Then if the pass is in the opposing side, it is a question of taking into account the influence of the opposing players. Finally, the last phase consists in analysing what the defenders could have done to prevent the pass. A similar procedure is in place to describe the passes in the open spaces.
+
+[14]	« (PDF) Director’s Cut: Analysis and Annotation of Soccer Matches », ResearchGate. [En ligne]. Disponible sur: https://www.researchgate.net/publication/308756859_Director’s_Cut_Analysis_and_Annotation_of_Soccer_Matches. [Consulté le: 01-nov-2018].
+
+[15] M. Stein et al., « Revealing the Invisible: Visual Analytics and Explanatory Storytelling for Advanced Team Sport Analysis », in 2018 International Symposium on Big Data Visual and Immersive Analytics (BDVA), Konstanz, 2018, p. 1‑9.
 
 
-- L'article [13] réalise une étude sur l’occupation de l’espace au basket. Elle repose sur l’analogie avec l’échange sur le marché. Le terrain est découpé grâce aux espaces de Voronoï et au sein de chacun de ces espaces l’influence d’un joueur est inversement proportionnelle à la distance à laquelle il se situe. Un principe de base : si un joueur i donne la balle à un joueur j c’est que celui-ci occupe une position mieux placée. Ainsi il devient intéressant d’associer une valeur à chaque espace du terrain en le découpant en cellules. Pour cela ils utilisent “l’inférence bayésienne” à l’aide des données de position des joueurs et de passes. Il remarque que les zones importantes du terrain peuvent varier d’une équipe à une autre. 
+- Article[16] carries out a study on the use of space in basketball. It is based on the analogy with market trading. The field is divided up by Voronoi's spaces and within each of these spaces a player's influence is inversely proportional to the distance at which he is located. A basic principle: if a player i gives the ball to a player j it is because the latter occupies a better position. Thus it becomes interesting to associate a value to each space of the field by dividing it into cells. To do this, they use "Bayesian inference" using player position and pass data. He notes that the important areas of the field may vary from one team to another. 
 
-[13] D. Cervone, L. Bornn, et K. Goldsberry, « 1 Intro: the Basketball Court is a Real Estate Market », p. 8, 2016.
+[16] D. Cervone, L. Bornn, et K. Goldsberry, « 1 Intro: the Basketball Court is a Real Estate Market », p. 8, 2016.
 
-- L'article [14] réalise une étude sur l’occupation et la génération d’espaces au foot. Dans ce sport, les joueurs ne sont en possession du ballon que 3 minutes, d’où  l’importance du jeu sans ballon. La valeur d’un espace du terrain peut être définie grâce à sa position relativement au ballon, la proximité avec le but adverse et le niveau d’appartenance de l’espace. Pour aller plus loin on peut regarder la vitesse du joueur également. Après avoir défini **la zone d’influence d’un joueur**, (grâce à une densité de probabilité d'une loi gaussienne à deux variables), l’auteur définit **l’état de contrôle d’une zone** par une équipe donnée en comparant à chaque endroit la somme des influences des joueurs d’une équipe avec celle de l’autre équipe. Ensuite l’auteur cherche a donné de **la valeur à une zone du terrain**. Plusieurs critères envisagés : position par rapport à la balle, au but et des autres joueurs. Afin de déterminer une fonction caractéristique de la valeur d’une zone d’influence ils étudient d’abord la somme d’influence de la défense d’une zone en fonction de la position de la balle. Pour cela ils utilisent un feed forward neural network. Une fois la valeur d’une zone déterminée à partir de la position de la balle et des défenseurs il la normalise par la valeur d’une zone vue par rapport à la position du but adverse. Ils se concentrent finalement sur le sens des déplacements des joueurs avec deux critères : SOG (space occupation gain) et SGG (space generation gain). Enfin l’auteur réalise une analyse de ses recherches avec phase de jeu du FC Barcelone.
+- Article[17] carries out a study on the occupation and generation of football spaces. In this sport, players are only in possession of the ball for 3 minutes, hence the importance of playing without a ball. The value of a terrain space can be defined by its position relative to the ball, its proximity to the opponent's goal and the level of belonging of the space. To go further we can look at the player's speed as well. After defining **a player's area of influence**, (using a probability density of a two-variable Gaussian law), the author defines **the state of control of a given area** by a given team by comparing at each location the sum of the influences of the players of one team with that of the other team. Then the searched author gave **the value to an area of the land**. Several criteria considered: position in relation to the ball, the goal and the other players. In order to determine a characteristic function of the value of an area of influence they first study the sum of the influence of the defense of an area as a function of the position of the ball. To do this, they use a neural network feed forward. Once the value of an area is determined from the position of the ball and the defenders, he normalizes it by the value of an area seen in relation to the position of the opposing goal. Finally, they focus on the direction of players' movements with two criteria: SOG (space occupation gain) and SGG (space generation gain). Finally, the author analyses his research with the FC Barcelona game phase.
 
-[14] J. Fernandez, L. Bornn, « Wide Open Spaces: A statistical technique for measuring space creation in professional soccer », p. 19, 2018.
+[17] J. Fernandez, L. Bornn, « Wide Open Spaces: A statistical technique for measuring space creation in professional soccer », p. 19, 2018.
 
-- Beaucoup d'entraîneurs analysent les performances de leur équipe après les matchs. L'article [15] apporte un moyen visuel de description. Il est basé sur trois critères collectifs : **la position du centre de masse, la dispersion de l'équipe (position moyen des joueurs par rapport au CDM, vitesse de dispersion ou de resserrement, distance occupée sur une largeur u terrain) et la synchronisation de l'équipe.** Les critères individuels sont également utilisés mais de manière secondaire. Deux actions sont traitées dans l'article où on peut voir qu'une action de but peut être expliquée par un ou plusieurs de ces critères.
+- Many coaches analyze their team's performance after the games. Article[18] provides a visual means of description. It is based on three collective criteria: **the position of the centre of mass, the dispersion of the team (average position of the players in relation to the CDM, speed of dispersion or tightening, distance occupied over a width u of the field) and the synchronization of the team.** The individual criteria are also used but in a secondary way. Two actions are discussed in the article where we can see that a goal action can be explained by one or more of these criteria.
 
-[15] A. Benito Santos, R. Theron, A. Losada, J. E. Sampaio, et C. Lago-Peñas, « Data-Driven Visual Performance Analysis in Soccer: An Exploratory Prototype », Front. Psychol., vol. 9, 2018.
+[18] A. Benito Santos, R. Theron, A. Losada, J. E. Sampaio, et C. Lago-Peñas, « Data-Driven Visual Performance Analysis in Soccer: An Exploratory Prototype », Front. Psychol., vol. 9, 2018.
 
-- Dans [16], le comportement collectif des joueurs à l'aide leur trajectoire ainsi que celle de la balle. Plusieurs critères sont définis : **"possible region" (région qu'un objet peut potentiellement atteindre en un temps donné, à partir d'un temps donné t), "catchable region", "safe region", "competition region".** A partir de ces critères plusieurs mesures peuvent être calculées comme l'aire moyenne des "safe region" des joueurs ce qui permet de caractériser leur capacité à se démarquer.
+- In[19], the collective behaviour of the players using their trajectory as well as that of the ball. Several criteria are defined: **From these criteria several measures can be calculated as the average area of the players' safe regions, which makes it possible to characterize their ability to stand out.
 
-[16] C. Kang, J. Hwang, et K. Li, « Trajectory Analysis for Soccer Players », in Sixth IEEE International Conference on Data Mining - Workshops (ICDMW’06), Hong Kong, China, 2006, p. 377‑381.
+[19] C. Kang, J. Hwang, et K. Li, « Trajectory Analysis for Soccer Players », in Sixth IEEE International Conference on Data Mining - Workshops (ICDMW’06), Hong Kong, China, 2006, p. 377‑381.
 
-- L'article [17] présente d'une manière très détaillée un moyen de mesurer la pression exercée par les défenseurs au football. Au delà de la simple distance entre deux joueurs l'article cherche à prendre en compte les déplacements, la vitesse, la position de la balle et la position par rapport au but.
+- Article[20] presents in great detail a way of measuring the pressure exerted by defenders on football. Beyond the simple distance between two players, the article seeks to take into account the movements, speed, position of the ball and position in relation to the goal.
 
-[17] G. Andrienko et al., « Visual analysis of pressure in football », Data Mining and Knowledge Discovery, vol. 31, no 6, p. 1793‑1839, nov. 2017.
+[20] G. Andrienko et al., « Visual analysis of pressure in football », Data Mining and Knowledge Discovery, vol. 31, no 6, p. 1793‑1839, nov. 2017.
 
-- The pressure exerced by defensive players on the shooter has an influence on shot efficiency [,]. So it is important for teams to try to get *open shots* to improve their efficiency. [] study which game strategies best lead to open shots for each team.
+- The pressure exerced by defensive players on the shooter has an influence on shot efficiency [21,22]. So it is important for teams to try to get *open shots* to improve their efficiency. [22] study which game strategies best lead to open shots for each team.
 
-[]	https://messagerie.ec-lyon.fr/service/home/~/?auth=co&loc=fr&id=10090&part=2
+[21](https://messagerie.ec-lyon.fr/service/home/~/?auth=co&loc=fr&id=10090&part=2) G. Csátaljay, N. James, M. Hughes, et H. Dancs, « Effects of defensive pressure on basketball shooting performance », International Journal of Performance Analysis in Sport, vol. 13, déc. 2013.
 
-[]http://www.yisongyue.com/publications/ssac2014_open_shot.pdf
+[22](http://www.yisongyue.com/publications/ssac2014_open_shot.pdf) P. Lucey, A. Bialkowski, P. Carr, Y. Yue, I. Matthews, et D. Research, « “How to Get an Open Shot”: Analyzing Team Movement in », p. 8.
+
+- Voronoi diagrams can be derived to obtain new metrics characterizing space occupancy. Thus the article [23] details how by superimposing the space occupation of two opposing teams we can quantify their interaction.
+
+[23](https://www.tandfonline.com/doi/abs/10.1080/24748668.2013.11868640) S. Fonseca, J. Milho, B. Travassos, D. Araújo, et A. Lopes, « Measuring spatial interaction behavior in team sports using superimposed Voronoi diagrams », International Journal of Performance Analysis in Sport, vol. 13, no 1, p. 179‑189, avr. 2013.
+
+- The article [24] develops a new metric called "dominant region" that makes it possible to quantify the area of influence of a football player.
+
+[24](https://sci-hub.tw/https://ieeexplore.ieee.org/abstract/document/852338) T. Taki et J. Hasegawa, « Visualization of dominant region in team games and its application to teamwork analysis », Proceedings Computer Graphics International 2000, p. 227‑235, 2000.
 
 ###  Corrélation entre particules fluides et footballers. 
 
-L’étude des écoulements turbulents des particules fluides montre que la géométrie de l’espace dans lequel elles évoluent influe sur le changement de direction moyen. Il se trouve que la fonction de densité des changements de direction des joueurs de football sur un terrain de foot révèle une forme commune à celles de particules fluides confinées en 2D. Ainsi le comportement anisotrope et a priori non aléatoire des joueurs de foot n’a pas d’influence et seule la géométrie du domaine de limitation a un impact sur les changements de directions moyens.
+The study of turbulent flows of fluid particles shows that the geometry of the space in which they evolve influences the average change in direction. As it happens, the density function of changes in the direction of football players on a football field reveals a shape common to those of fluid particles confined in 2D. Thus the anisotropic and a priori non-random behaviour of football players has no influence and only the geometry of the limiting domain has an impact on changes in average directions.
 
-[18] Wouter J. T. Bos Benjamin Kadoch and Kai Schneider. Directional change of fluid particles in two-dimensional turbulence and of football players. Physical Review Fluids, June 2017.
+[25] Wouter J. T. Bos Benjamin Kadoch and Kai Schneider. Directional change of fluid particles in two-dimensional turbulence and of football players. Physical Review Fluids, June 2017.
 
-## To annotate
-
-	https://www.tandfonline.com/doi/abs/10.1080/24748668.2013.11868640
-	https://sci-hub.tw/https://dl.acm.org/citation.cfm?id=3054132
-	https://sci-hub.tw/https://ieeexplore.ieee.org/abstract/document/852338
 
 
 
