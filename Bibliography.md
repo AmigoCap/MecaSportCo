@@ -24,7 +24,7 @@ The two links[1] and[2] explain how the data for each game is organized and how 
 
 ## Visualization
 
-### Généralités
+### State of the art
 
 The visualization of sports data can take many different forms. Player statistics can be graphically represented to compare their performance on different criteria. This representation only reflects the information provided by the raw data. These data can be presented in a more concrete way by displaying graphs superimposed on the sports field. Finally, it is also possible to view the data directly on the videos of the game phases concerned in order to make a concrete link between the data and the game phase. Article[3] provides a detailed overview of all the work already carried out on the analysis of sports data.
 
@@ -62,7 +62,7 @@ Article [7] details the importance of combining data and video while indicating 
 
 [8] Raymond Cen, Harrison Chase, Carlos Pena-Lobel, et Daniel Silberwasser, « NBA Shot Prediction and Analysis by hwchase17 ». [En ligne]. Disponible sur: https://hwchase17.github.io/sportvu/. [Consulté le: 04-oct-2019]
 
-### Autour de la prédiction 
+### About prediction
 
 - Article[9] presents a new metric that allows to characterize a given situation in terms of the possibility of points scored as a result of this action. This quantity is called EPV: Expected Possession Value. The EPV is calculated statistically by taking into account a finite quantity of action possibilities for the player in possession of the ball: dribbles, passes, shots...
 
@@ -77,7 +77,7 @@ Article [7] details the importance of combining data and video while indicating 
 [11] Y. Yue, P. Lucey, P. Carr, A. Bialkowski, et I. Matthews, « Learning Fine-Grained Spatial Models for Dynamic Sports Play Prediction », in 2014 IEEE International Conference on Data Mining, Shenzhen, China, 2014, p. 670‑679.
 
 
-### Autour de l'occupation d'espace
+### Space occupation
 
 - This article [12] presents the state of the art of the various studies of spatio-temporal behaviour in team sports.
 
@@ -128,7 +128,7 @@ Article [7] details the importance of combining data and video while indicating 
 
 [24](https://sci-hub.tw/https://ieeexplore.ieee.org/abstract/document/852338) T. Taki et J. Hasegawa, « Visualization of dominant region in team games and its application to teamwork analysis », Proceedings Computer Graphics International 2000, p. 227‑235, 2000.
 
-###  Corrélation entre particules fluides et footballers. 
+###  Correlation between fluid particles and footballers. 
 
 The study of turbulent flows of fluid particles shows that the geometry of the space in which they evolve influences the average change in direction. As it happens, the density function of changes in the direction of football players on a football field reveals a shape common to those of fluid particles confined in 2D. Thus the anisotropic and a priori non-random behaviour of football players has no influence and only the geometry of the limiting domain has an impact on changes in average directions.
 
