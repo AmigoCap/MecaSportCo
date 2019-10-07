@@ -15,7 +15,7 @@ import time
 from scipy.signal import savgol_filter
 
 
-dico=pickle.load(open('Shots','rb'))
+#dico=pickle.load(open('Shots','rb'))
 
 def shot_type(row):
     if row['Time_to_shoot']>-2:
@@ -188,3 +188,78 @@ def shooting_efficiency_inferior(data):
     #plt.plot(S, label='success')
     #plt.plot(T, label='fails')
     #plt.legend()
+
+
+
+
+
+
+def restructure_data(data):
+    
+    ### getting the data ###
+    D_CLOSEST_PLAYER=data['D_CLOSEST_DEF']
+    T_CLOSEST_PLAYER=data['T_CLOSEST_DEF']
+    TIME=data['TIME_ABSCISSE']
+    TIME_TO_SHOOT=data['TIME_TO_SHOOT']
+    
+    ### only the second column because the first one contains if it is a succes or a miss ###
+    D_CLOSEST_PLAYER_bis=[]
+    T_CLOSEST_PLAYER_bis=[]
+    TIME_bis=[]
+    TIME_TO_SHOOT_bis=[]
+    SUCCESS=[]
+    nb_catch_and_shoot=0
+    nb_pull_up=0
+    nb_success=0
+    nb_missed=0
+    nb_cns_success=0
+    nb_cns_missed=0
+    nb_pull_up_success=0
+    nb_pull_up_missed=0
+    for k in range(len(D_CLOSEST_PLAYER)):
+        unique,count=np.unique(np.array(TIME[k][1]).round(2), return_counts=True)
+        if list(count)==[1]*len(count): # we don't take shots where values of time are repeated, because in the data, sometimes the values of time doesn't change so stay on the same second but we count the evolution on this second
+            if D_CLOSEST_PLAYER[k][0]==0:
+                nb_missed+=1
+                if TIME_TO_SHOOT[k][1]>-2:
+                    nb_catch_and_shoot+=1
+                    nb_cns_missed+=1
+                else :
+                    nb_pull_up+=1
+                    nb_pull_up_missed+=1
+            else :
+                nb_success+=1
+                if TIME_TO_SHOOT[k][1]>-2:
+                    nb_catch_and_shoot+=1
+                    nb_cns_success+=1
+                else :
+                    nb_pull_up+=1
+                    nb_pull_up_success+=1
+            D_CLOSEST_PLAYER_bis.append(D_CLOSEST_PLAYER[k][1])
+            T_CLOSEST_PLAYER_bis.append(T_CLOSEST_PLAYER[k][1])
+            TIME_bis.append(np.array(TIME[k][1]).round(2)) # round to 0.01 second
+            TIME_TO_SHOOT_bis.append([TIME_TO_SHOOT[k][1]]*len(TIME[k][1]))
+            SUCCESS.append([TIME_TO_SHOOT[k][0]]*len(TIME[k][1]))
+    
+    print('number of valid shot:',len(D_CLOSEST_PLAYER_bis))
+    print('number of success :',nb_success)
+    print('number of miss :',nb_missed)
+    print('percentage of success:',nb_success/(nb_success+nb_missed)*100)
+    print('percentage of catch-and-shoot shots :',nb_catch_and_shoot/(nb_pull_up+nb_catch_and_shoot)*100)
+    print('percentage of catch-and-shoot success:',nb_cns_success/(nb_cns_missed+nb_cns_success)*100)
+    print('percentage of pull-up success:',nb_pull_up_success/(nb_pull_up_missed+nb_pull_up_success)*100)
+    
+    ### we concatenate all the data
+    TIME_bis=np.concatenate(np.array(TIME_bis)) 
+    D_CLOSEST_PLAYER_bis=np.concatenate(np.array(D_CLOSEST_PLAYER_bis))
+    T_CLOSEST_PLAYER_bis=np.concatenate(np.array(T_CLOSEST_PLAYER_bis))
+    TIME_TO_SHOOT_bis=np.concatenate(np.array(TIME_TO_SHOOT_bis))
+    SUCCESS=np.concatenate(np.array(SUCCESS))
+    
+    ### put the data into a dataframe ###
+    df=pd.DataFrame({'D':D_CLOSEST_PLAYER_bis,'T':T_CLOSEST_PLAYER_bis,'Time':TIME_bis,'Time_to_shoot':TIME_TO_SHOOT_bis,'Shot result':SUCCESS})
+    
+    ## only evolution between 3.2 seconds before shot and 0.8 second after. (It is because there are some errors in the data) ##
+    df=df.query('Time>-3.2 and Time<0.8').copy()
+    
+    return(df)
