@@ -20,5 +20,9 @@ The dataset we use is derived from ***Stats*** company data and *SportsVU* techn
 
 ## Bibliography
 
+<<<<<<< HEAD
 References of the project can be found in [Bibliography](https://github.com/AmigoCap/MecaSportCo/blob/master/Bibliography.md)
 
+=======
+References of the project can be found
+>>>>>>> 67b50d8a0314f9fce6e7bc3eb8d76eff1019ae5a
