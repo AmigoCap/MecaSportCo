@@ -175,9 +175,13 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
     t_closest_def=[]
     time_to_shoot=[]
     time_abscisse=[]
+    who_shot=[]
+    position_shot=[]
+    ball_trajectories=[]
+    time_shots_bis=[]
     
     if len(moments)<=1:
-        return([time,w_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,w_reception])
+        return([time,w_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,w_reception,who_shot,position_shot,ball_trajectories,time_shots_bis])
     
     ### begin at the end of the previous moment ###
     
@@ -208,7 +212,7 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
                 when_shot=i
     
     if i>=(len(moments)-2) : #no moment
-        return([time,who_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,when_reception])
+        return([time,who_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,when_reception,who_shot,position_shot,ball_trajectories,time_shots_bis])
     
         
     while i<(len(moments)-2):
@@ -266,8 +270,12 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
                                     t_clos=[0,[]]
                                     t_abs=[0,[]]
                                     time_to_shoot.append([0,moments[when_shot][2]-when_reception])
+                                    who_shot.append(who_ball)
+                                    position_shot.append(position)
+                                    ball_traj=[[],[],[]]
                                 
                                     time_shots.append([5-moments[i][0],moments[i][2]])
+                                    time_shots_bis.append([5-moments[when_shot][0],moments[when_shot][2]])
                                     
                                     ### calculating pressure evolution 3seconds before and 1 second after the shot with both models ###
                                     
@@ -280,7 +288,10 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
 
                                             t_abs[1].append(moments[when_shot][2]-moments[j][2])
                                             d[1].append(distance_closest_def(moments,j,who_ball))
-                                            t_clos[1].append(time_closest_def(moments,j,who_ball))   
+                                            t_clos[1].append(time_closest_def(moments,j,who_ball))  
+                                            ball_traj[0].append(moments[j][5][0][2])
+                                            ball_traj[1].append(moments[j][5][0][3])
+                                            ball_traj[2].append(moments[j][5][0][4])
                                     
                                 
                                     ### waiting for the ball descending under basket ###
@@ -307,6 +318,7 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
                                     d_closest_def.append(d)
                                     t_closest_def.append(t_clos)
                                     time_abscisse.append(t_abs)
+                                    ball_trajectories.append(ball_traj)
                             
                                 else:
                                     while ball1[2]>=2.5*3.28 and i<(len(moments)-2):
@@ -318,12 +330,12 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
         i+=1
     
     time=[5-moments[i][0],moments[i][2]]        
-    return([time,who_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,position,when_reception])
+    return([time,who_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,position,when_reception,who_shot,position_shot,ball_trajectories,time_shots_bis])
                                 
                             
     
-def track_shots(data):
-    with open(data) as json_file:  
+def track_shots(file_name):
+    with open(file_name) as json_file:  
         data = json.load(json_file)
         events=data['events']
     event=events[2]
@@ -337,7 +349,12 @@ def track_shots(data):
     T_closest_def=[]
     Time_to_shoot=[]
     Time_abscisse=[]
-
+    WHO_SHOT=[]
+    POSITION_SHOT=[]
+    BALL_TRAJECTORIES=[]
+    MATCH_ID=[]
+    TIME_SHOTS_bis=[]
+    
     for q in range(len(events)):
         event=events[q]
         moments=event['moments']
@@ -351,8 +368,13 @@ def track_shots(data):
         Time_abscisse=Time_abscisse+res[6]
         position=res[7]
         when_reception=res[8]
+        WHO_SHOT=WHO_SHOT+res[9]
+        POSITION_SHOT=POSITION_SHOT+res[10]
+        BALL_TRAJECTORIES=BALL_TRAJECTORIES+res[11]
+        MATCH_ID.append(file_name[7:10])
+        TIME_SHOTS_bis=TIME_SHOTS_bis+res[12]
     
-    return(D_closest_def,T_closest_def,Time_to_shoot,Time_abscisse)
+    return(D_closest_def,T_closest_def,Time_to_shoot,Time_abscisse,WHO_SHOT,POSITION_SHOT,BALL_TRAJECTORIES,MATCH_ID,TIME_SHOTS_bis)
 
 
 #import matplotlib.pyplot as plt
@@ -368,7 +390,12 @@ def track_shots(data):
 #T_CLOSEST_DEF=[]
 #TIME_TO_SHOOT=[]
 #TIME_ABSCISSE=[]
-
+#WHO_SHOT=[]
+#POSTION_SHOT=[]
+#BALL_TRAJECTORIES=[]
+#MATCH_ID=[]
+#TIME_SHOTS=[]
+#
 #match_number=0
 #for k in range(638):
 #    os.chdir('/Volumes/My Passport/GABIN/Documents/CENTRALE_LYON_1A/PaR/Basket/')
@@ -381,6 +408,11 @@ def track_shots(data):
 #            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
 #            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
 #            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
+#            WHO_SHOT=WHO_SHOT+result[4]
+#            POSTION_SHOT=POSTION_SHOT+result[5]
+#            BALL_TRAJECTORIES=BALL_TRAJECTORIES+result[6]
+#            MATCH_ID=MATCH_ID+result[7]
+#            TIME_SHOTS=TIME_SHOTS+result[8]
 #            
 #    if 9<k<100:
 #        if ('00215000'+str(k)+'.json') in os.listdir():
@@ -391,6 +423,11 @@ def track_shots(data):
 #            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
 #            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
 #            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
+#            WHO_SHOT=WHO_SHOT+result[4]
+#            POSTION_SHOT=POSTION_SHOT+result[5]
+#            BALL_TRAJECTORIES=BALL_TRAJECTORIES+result[6]
+#            MATCH_ID=MATCH_ID+result[7]
+#            TIME_SHOTS=TIME_SHOTS+result[8]
 #            
 #    if 99<k:
 #        if ('0021500'+str(k)+'.json') in os.listdir():
@@ -401,11 +438,17 @@ def track_shots(data):
 #            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
 #            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
 #            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
+#            WHO_SHOT=WHO_SHOT+result[4]
+#            POSTION_SHOT=POSTION_SHOT+result[5]
+#            BALL_TRAJECTORIES=BALL_TRAJECTORIES+result[6]
+#            MATCH_ID=MATCH_ID+result[7]
+#            TIME_SHOTS=TIME_SHOTS+result[8]
 #    
 #    if k%100==0:
 #        os.chdir('/Users/gabin/Ordinateur/Documents/CENTRALE_LYON_1A/PaR/MecaFootCo/Notebooks')
-#        save={'D_CLOSEST_DEF':D_CLOSEST_DEF,'T_CLOSEST_DEF':T_CLOSEST_DEF,'TIME_TO_SHOOT':TIME_TO_SHOOT,'TIME_ABSCISSE':TIME_ABSCISSE}
-#        pickle.dump(save, open('Shots_final', 'wb'))
+#        save={'D_CLOSEST_DEF':D_CLOSEST_DEF,'T_CLOSEST_DEF':T_CLOSEST_DEF,'TIME_TO_SHOOT':TIME_TO_SHOOT,'TIME_ABSCISSE':TIME_ABSCISSE,'WHO_SHOT':WHO_SHOT,'POSTION_SHOT':POSTION_SHOT,'BALL_TRAJECTORIES':BALL_TRAJECTORIES,
+#            'TIME_SHOTS':TIME_SHOTS,'MATCH_ID':MATCH_ID}
+#        pickle.dump(save, open('Shots_25_11_k', 'wb'))
     
 ####################################################################################
 ####################################################################################
@@ -621,40 +664,39 @@ def track_shots_Curry(data):
         
     return(D_closest_def,T_closest_def,Time_to_shoot,Time_abscisse)
 
-D_CLOSEST_DEF=[]
-T_CLOSEST_DEF=[]
-TIME_TO_SHOOT=[]
-TIME_ABSCISSE=[]
-
-for k in range(638):
-    os.chdir('/Volumes/My Passport/GABIN/Documents/CENTRALE_LYON_1A/PaR/Basket/')
-    if k<10:
-        if ('002150000'+str(k)+'.json') in os.listdir():
-            print(k)
-            result=track_shots_Curry('002150000'+str(k)+'.json')
-            D_CLOSEST_DEF=D_CLOSEST_DEF+result[0]
-            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
-            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
-            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
-            
-    if 9<k<100:
-        if ('00215000'+str(k)+'.json') in os.listdir():
-            print(k)
-            result=track_shots_Curry('00215000'+str(k)+'.json')
-            D_CLOSEST_DEF=D_CLOSEST_DEF+result[0]
-            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
-            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
-            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
-            
-    if 99<k:
-        if ('0021500'+str(k)+'.json') in os.listdir():
-            print(k)
-            result=track_shots_Curry('0021500'+str(k)+'.json')
-            D_CLOSEST_DEF=D_CLOSEST_DEF+result[0]
-            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
-            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
-            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
-            
-ax = sns.kdeplot(np.array(dico['TIME_TO_SHOOT'])[:,0])
-plt.show()
-
+#D_CLOSEST_DEF=[]
+#T_CLOSEST_DEF=[]
+#TIME_TO_SHOOT=[]
+#TIME_ABSCISSE=[]
+#
+#for k in range(638):
+#    os.chdir('/Volumes/My Passport/GABIN/Documents/CENTRALE_LYON_1A/PaR/Basket/')
+#    if k<10:
+#        if ('002150000'+str(k)+'.json') in os.listdir():
+#            print(k)
+#            result=track_shots_Curry('002150000'+str(k)+'.json')
+#            D_CLOSEST_DEF=D_CLOSEST_DEF+result[0]
+#            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
+#            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
+#            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
+#            
+#    if 9<k<100:
+#        if ('00215000'+str(k)+'.json') in os.listdir():
+#            print(k)
+#            result=track_shots_Curry('00215000'+str(k)+'.json')
+#            D_CLOSEST_DEF=D_CLOSEST_DEF+result[0]
+#            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
+#            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
+#            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
+#            
+#    if 99<k:
+#        if ('0021500'+str(k)+'.json') in os.listdir():
+#            print(k)
+#            result=track_shots_Curry('0021500'+str(k)+'.json')
+#            D_CLOSEST_DEF=D_CLOSEST_DEF+result[0]
+#            T_CLOSEST_DEF=T_CLOSEST_DEF+result[1]
+#            TIME_TO_SHOOT=TIME_TO_SHOOT+result[2]
+#            TIME_ABSCISSE=TIME_ABSCISSE+result[3]
+#            
+#
+#
