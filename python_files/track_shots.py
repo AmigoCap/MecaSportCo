@@ -166,7 +166,7 @@ def position_player_with_ball_bis(moments,i):
             dmin=[d,k]
     return players[dmin[1]][2:4]
     
-def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
+def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos,m_id):
     
     time_shots=TIME_SHOTS
     time=t_end
@@ -179,9 +179,10 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
     position_shot=[]
     ball_trajectories=[]
     time_shots_bis=[]
+    match_id=[]
     
     if len(moments)<=1:
-        return([time,w_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,w_reception,who_shot,position_shot,ball_trajectories,time_shots_bis])
+        return([time,w_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,w_reception,who_shot,position_shot,ball_trajectories,time_shots_bis,match_id])
     
     ### begin at the end of the previous moment ###
     
@@ -212,7 +213,7 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
                 when_shot=i
     
     if i>=(len(moments)-2) : #no moment
-        return([time,who_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,when_reception,who_shot,position_shot,ball_trajectories,time_shots_bis])
+        return([time,who_ball,time_shots,d_closest_def,t_closest_def,time_to_shoot,time_abscisse,pos,when_reception,who_shot,position_shot,ball_trajectories,time_shots_bis,match_id])
     
         
     while i<(len(moments)-2):
@@ -272,6 +273,7 @@ def track_event_shots(moments,t_end,w_ball,w_reception,TIME_SHOTS,pos):
                                     time_to_shoot.append([0,moments[when_shot][2]-when_reception])
                                     who_shot.append(who_ball)
                                     position_shot.append(position)
+                                    match_id.append(m_id)
                                     ball_traj=[[],[],[]]
                                 
                                     time_shots.append([5-moments[i][0],moments[i][2]])
@@ -338,6 +340,8 @@ def track_shots(file_name):
     with open(file_name) as json_file:  
         data = json.load(json_file)
         events=data['events']
+        
+    m_id=file_name[7:10]
     event=events[2]
     time_end=[np.inf,np.inf]
     TIME_SHOTS=[[10,100]]
@@ -358,7 +362,7 @@ def track_shots(file_name):
     for q in range(len(events)):
         event=events[q]
         moments=event['moments']
-        res=track_event_shots(moments,time_end,who_ball,when_reception,TIME_SHOTS,position)
+        res=track_event_shots(moments,time_end,who_ball,when_reception,TIME_SHOTS,position,m_id)
         time_end=res[0]
         who_ball=res[1]
         TIME_SHOTS=res[2]
@@ -371,7 +375,7 @@ def track_shots(file_name):
         WHO_SHOT=WHO_SHOT+res[9]
         POSITION_SHOT=POSITION_SHOT+res[10]
         BALL_TRAJECTORIES=BALL_TRAJECTORIES+res[11]
-        MATCH_ID.append(file_name[7:10])
+        MATCH_ID=MATCH_ID+res[13]
         TIME_SHOTS_bis=TIME_SHOTS_bis+res[12]
     
     return(D_closest_def,T_closest_def,Time_to_shoot,Time_abscisse,WHO_SHOT,POSITION_SHOT,BALL_TRAJECTORIES,MATCH_ID,TIME_SHOTS_bis)
