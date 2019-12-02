@@ -233,15 +233,15 @@ def structure_data_by_shot(data):
                     nb_pull_up_success+=1
             D_CLOSEST_PLAYER_bis.append(D_CLOSEST_PLAYER[k][1])
             T_CLOSEST_PLAYER_bis.append(T_CLOSEST_PLAYER[k][1])
-            TIME_bis.append(np.array(TIME[k][1]).round(2)) # round to 0.01 second
+            TIME_bis.append(list(np.array(TIME[k][1]).round(2))) # round to 0.01 second
             TIME_TO_SHOOT_bis.append(TIME_TO_SHOOT[k][1])
             SUCCESS.append(TIME_TO_SHOOT[k][0])
             WHO_SHOT_bis.append(WHO_SHOT[k])
             X_SHOT.append(POSITION_SHOT[k][0])
             Y_SHOT.append(POSITION_SHOT[k][1])
-            X_BALL.append(np.array(BALL_TRAJECTORIES[k][0]))
-            Y_BALL.append(np.array(BALL_TRAJECTORIES[k][1]))
-            Z_BALL.append(np.array(BALL_TRAJECTORIES[k][2]))
+            X_BALL.append(BALL_TRAJECTORIES[k][0])
+            Y_BALL.append(BALL_TRAJECTORIES[k][1])
+            Z_BALL.append(BALL_TRAJECTORIES[k][2])
             QUARTER.append(5-TIME_SHOTS[k][0])
             CLOCK.append(TIME_SHOTS[k][1])
             MATCH_ID_bis.append(MATCH_ID[k])
@@ -331,14 +331,14 @@ def players_stats(df_shots):
     df_stats=pd.DataFrame({'total':total,'success':success,'miss':miss,'percentage':percentage,'match_played':match_played,'total_cas':total_cas,'success_cas':success_cas,'miss_cas':miss_cas,'percentage_cas':percentage_cas},index=players_id)
     return df_stats
 
-df_plot_mean=restructure_data(dico)
+#df_plot_mean=restructure_data(dico)
 df_shots=structure_data_by_shot(dico)
-df_stats=players_stats(df_shots)
+#df_stats=players_stats(df_shots)
 
-df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
+#df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
 df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
-df_stats.to_csv('../data/df_stats.csv', sep=',', encoding='utf-8')
-players.to_csv('../data/players.csv', sep=',', encoding='utf-8')
+#df_stats.to_csv('../data/df_stats.csv', sep=',', encoding='utf-8')
+#players.to_csv('../data/players.csv', sep=',', encoding='utf-8')
 
 
 def plot_shot(df_shots,i,players):
