@@ -4,6 +4,7 @@ __pycache__
 .DS_Store
 data/Shots_663
 data/Shots_637
+data/Shots_663_V
 data/df_plot_mean.csv
 data/df_shots.csv
 data/df_stats.csv
