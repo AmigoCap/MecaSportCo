@@ -24,6 +24,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import json
 
+## load dictionnary ##
+
+dico=pickle.load(open('../data/Shots_663','rb'))
 
 ## load players description ##
 
@@ -46,11 +49,8 @@ def players_description(data): #data should be a string like : 'data.json', the 
     df=pd.DataFrame({'firstName':firstName,'lastName':lastName,'player_id':player_id,'team_id':team_id},index=player_id)
     return(df)
     
-players=players_description('../data/players.json')
+#players=players_description('../data/players.json')
 
-## load dictionnary ##
-
-dico=pickle.load(open('../data/Shots_663','rb'))
 
 ## Structure data to make mean ##
 
@@ -336,7 +336,7 @@ df_shots=structure_data_by_shot(dico)
 #df_stats=players_stats(df_shots)
 
 #df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
-df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
+#df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
 #df_stats.to_csv('../data/df_stats.csv', sep=',', encoding='utf-8')
 #players.to_csv('../data/players.csv', sep=',', encoding='utf-8')
 
