@@ -297,3 +297,71 @@ def time_closest_opponent(moment1,moment2,player_id):
                         tmin=t
             
     return(tmin)
+    
+def animation_print_court_teams_occupation_inertia(fig,ax,events,event_id,mom_id,voronoi_cut=False,player_info=False,n=50,p=94):
+    "This function return a visualization of the court for the moment mom_id of the event event_id. If voronoi_cut=True, voronoi cutting is plotted. Then, if value=True, a heat-map giving a value to space occupation is drawn."
+    if voronoi_cut:
+        voronoi(events,event_id,mom_id)
+    event=events[event_id]
+    moment=event['moments'][mom_id]
+    moment1=moment
+    moment2=event['moments'][mom_id+1]
+    
+    # separation of ball, team1 and team2 and calculation of the speed
+    mom_infos=players_ball_speed_position(moment1,moment2)
+    
+    ind=1
+    for player in mom_infos['team2'].keys():
+        x=mom_infos['team2'][player]['xy'][0]
+        y=mom_infos['team2'][player]['xy'][1]
+        vx=mom_infos['team2'][player]['v'][0]
+        vy=mom_infos['team2'][player]['v'][1]
+        ax.plot(x,y,'bo',markersize=12,alpha=0.6)
+        ax.arrow(x,y,vx,vy,shape='full',lw=1.5,head_width=1)
+        if player_info:
+            ax.annotate(str(ind),(x,y),xytext=(3,3),textcoords='offset points')
+            ind+=1
+    
+    for player in mom_infos['team1'].keys():
+        x=mom_infos['team1'][player]['xy'][0]
+        y=mom_infos['team1'][player]['xy'][1]
+        vx=mom_infos['team1'][player]['v'][0]
+        vy=mom_infos['team1'][player]['v'][1]
+        ax.plot(x,y,'ro',markersize=12,alpha=0.6)
+        ax.arrow(x,y,vx,vy,shape='full',lw=1.5,head_width=1)
+        if player_info:
+            ax.annotate(str(ind),(x,y),xytext=(3,3),textcoords='offset points')
+            ind+=1
+            
+    court=np.zeros((n,p))
+    for i in range(n):
+        for j in range(p):
+            b=np.array([j,i]) # point d'arrivée
+        
+            tmin_1=np.inf
+            for player in mom_infos['team1'].keys():
+                a=mom_infos['team1'][player]['xy']
+                v=mom_infos['team1'][player]['v']
+                t=time_to_point(a,b,v)
+                if t<tmin_1:
+                    tmin_1=t
+                    
+            tmin_2=np.inf
+            for player in mom_infos['team2'].keys():
+                a=mom_infos['team2'][player]['xy']
+                v=mom_infos['team2'][player]['v']
+                t=time_to_point(a,b,v)
+                if t<tmin_2:
+                    tmin_2=t
+            
+            court[i,j]=tmin_1-tmin_2
+    im=plt.imshow(court,origin='lower', cmap='RdBu')
+    #plt.colorbar(orientation='vertical')
+        
+    ax.plot(mom_infos['ball']['xy'][0],mom_infos['ball']['xy'][1],'yo')
+    ax.set_xlabel('x in feet')
+    ax.set_ylabel('y in feet')
+    field = plt.imread("../Images/fullcourt.png")
+    ax.imshow(field, extent=[0,94,0,50])
+    #plt.savefig('../animation_frames/frame%d.jpg' % mom_id)
+    #plt.show()

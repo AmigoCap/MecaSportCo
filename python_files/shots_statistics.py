@@ -49,7 +49,7 @@ def players_description(data): #data should be a string like : 'data.json', the 
     df=pd.DataFrame({'firstName':firstName,'lastName':lastName,'player_id':player_id,'team_id':team_id},index=player_id)
     return(df)
     
-#players=players_description('../data/players.json')
+players=players_description('../data/players.json')
 
 
 ## Structure data to make mean ##
@@ -68,6 +68,8 @@ def restructure_data(data):
     BALL_TRAJECTORIES=data['BALL_TRAJECTORIES']
     TIME_SHOTS=data['TIME_SHOTS']
     MATCH_ID=data['MATCH_ID']
+    
+    print('number of total of shots:',len(D_CLOSEST_PLAYER_bis))
     
     ### only the second column because the first one contains if it is a succes or a miss ###
     D_CLOSEST_PLAYER_bis=[]
@@ -360,3 +362,14 @@ def plot_shot(df_shots,i,players):
     ax2.set_xlim((-3.2,0.8))
     ax2.set_ylim((0,2))
     plt.show()
+    
+def print_df_shot(df_shots,players):
+    for i in range(len(df_shots)):
+        Time=df_shots.iloc[i]['Time']
+        D=df_shots.iloc[i]['D']
+        T=df_shots.iloc[i]['T']
+        tts=df_shots.iloc[i]['Time_to_shoot']
+        player_id=df_shots.iloc[i]['player_id']
+        c=df_shots.iloc[i]['clock']
+        print(i,df_shots.iloc[i]['Match_id'],df_shots.iloc[i]['quarter'],str(c//60)+'m '+str(c%60),player_id,players.loc[player_id,'lastName'],df_shots.iloc[i]['Shot_type'],tts,df_shots.iloc[i]['Shot result'])
+        
