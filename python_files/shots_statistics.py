@@ -69,7 +69,7 @@ def restructure_data(data):
     TIME_SHOTS=data['TIME_SHOTS']
     MATCH_ID=data['MATCH_ID']
     
-    print('number of total of shots:',len(D_CLOSEST_PLAYER_bis))
+    print('number of total of shots:',len(D_CLOSEST_PLAYER))
     
     ### only the second column because the first one contains if it is a succes or a miss ###
     D_CLOSEST_PLAYER_bis=[]
@@ -100,41 +100,42 @@ def restructure_data(data):
     for k in range(len(D_CLOSEST_PLAYER)):
         unique,count=np.unique(np.array(TIME[k][1]).round(2), return_counts=True)
         if list(count)==[1]*len(count): # we don't take shots where values of time are repeated, because in the data, sometimes the values of time doesn't change so stay on the same second but we count the evolution on this second
-            if D_CLOSEST_PLAYER[k][0]==0:
-                nb_missed+=1
-                if TIME_TO_SHOOT[k][1]>-2:
-                    nb_catch_and_shoot+=1
-                    nb_cns_missed+=1
+            if TIME_TO_SHOOT[k][1]<-0.2: # there are errors : we don't have data before the player receives the ball so we can't evaluate these shots. It sometimes corresponds to freethrows
+                if D_CLOSEST_PLAYER[k][0]==0:
+                    nb_missed+=1
+                    if TIME_TO_SHOOT[k][1]>-2:
+                        nb_catch_and_shoot+=1
+                        nb_cns_missed+=1
+                    else :
+                        nb_pull_up+=1
+                        nb_pull_up_missed+=1
                 else :
-                    nb_pull_up+=1
-                    nb_pull_up_missed+=1
-            else :
-                nb_success+=1
-                if TIME_TO_SHOOT[k][1]>-2:
-                    nb_catch_and_shoot+=1
-                    nb_cns_success+=1
+                    nb_success+=1
+                    if TIME_TO_SHOOT[k][1]>-2:
+                        nb_catch_and_shoot+=1
+                        nb_cns_success+=1
+                    else :
+                        nb_pull_up+=1
+                        nb_pull_up_success+=1
+                D_CLOSEST_PLAYER_bis.append(D_CLOSEST_PLAYER[k][1])
+                T_CLOSEST_PLAYER_bis.append(T_CLOSEST_PLAYER[k][1])
+                TIME_bis.append(np.array(TIME[k][1]).round(2)) # round to 0.01 second
+                TIME_TO_SHOOT_bis.append([TIME_TO_SHOOT[k][1]]*len(TIME[k][1]))
+                SUCCESS.append([TIME_TO_SHOOT[k][0]]*len(TIME[k][1]))
+                WHO_SHOT_bis.append([WHO_SHOT[k]]*len(TIME[k][1]))
+                X_SHOT.append([POSITION_SHOT[k][0]]*len(TIME[k][1]))
+                Y_SHOT.append([POSITION_SHOT[k][1]]*len(TIME[k][1]))
+                X_BALL.append(np.array(BALL_TRAJECTORIES[k][0]))
+                Y_BALL.append(np.array(BALL_TRAJECTORIES[k][1]))
+                Z_BALL.append(np.array(BALL_TRAJECTORIES[k][2]))
+                QUARTER.append([5-TIME_SHOTS[k][0]]*len(TIME[k][1]))
+                CLOCK.append([TIME_SHOTS[k][1]]*len(TIME[k][1]))
+                MATCH_ID_bis.append([MATCH_ID[k]]*len(TIME[k][1]))
+                SHOT_ID.append([k]*len(TIME[k][1]))
+                if TIME_TO_SHOOT[k][1]<-2:
+                    SHOT_TYPE.append(['pull-up 3P']*len(TIME[k][1]))
                 else :
-                    nb_pull_up+=1
-                    nb_pull_up_success+=1
-            D_CLOSEST_PLAYER_bis.append(D_CLOSEST_PLAYER[k][1])
-            T_CLOSEST_PLAYER_bis.append(T_CLOSEST_PLAYER[k][1])
-            TIME_bis.append(np.array(TIME[k][1]).round(2)) # round to 0.01 second
-            TIME_TO_SHOOT_bis.append([TIME_TO_SHOOT[k][1]]*len(TIME[k][1]))
-            SUCCESS.append([TIME_TO_SHOOT[k][0]]*len(TIME[k][1]))
-            WHO_SHOT_bis.append([WHO_SHOT[k]]*len(TIME[k][1]))
-            X_SHOT.append([POSITION_SHOT[k][0]]*len(TIME[k][1]))
-            Y_SHOT.append([POSITION_SHOT[k][1]]*len(TIME[k][1]))
-            X_BALL.append(np.array(BALL_TRAJECTORIES[k][0]))
-            Y_BALL.append(np.array(BALL_TRAJECTORIES[k][1]))
-            Z_BALL.append(np.array(BALL_TRAJECTORIES[k][2]))
-            QUARTER.append([5-TIME_SHOTS[k][0]]*len(TIME[k][1]))
-            CLOCK.append([TIME_SHOTS[k][1]]*len(TIME[k][1]))
-            MATCH_ID_bis.append([MATCH_ID[k]]*len(TIME[k][1]))
-            SHOT_ID.append([k]*len(TIME[k][1]))
-            if TIME_TO_SHOOT[k][1]<-2:
-                SHOT_TYPE.append(['pull-up 3P']*len(TIME[k][1]))
-            else :
-                SHOT_TYPE.append(['catch-and-shoot 3P']*len(TIME[k][1]))
+                    SHOT_TYPE.append(['catch-and-shoot 3P']*len(TIME[k][1]))
     
     print('number of valid shot:',len(D_CLOSEST_PLAYER_bis))
     print('number of success :',nb_success)
@@ -217,41 +218,42 @@ def structure_data_by_shot(data):
     for k in range(len(D_CLOSEST_PLAYER)):
         unique,count=np.unique(np.array(TIME[k][1]).round(2), return_counts=True)
         if list(count)==[1]*len(count): # we don't take shots where values of time are repeated, because in the data, sometimes the values of time doesn't change so stay on the same second but we count the evolution on this second
-            if D_CLOSEST_PLAYER[k][0]==0:
-                nb_missed+=1
-                if TIME_TO_SHOOT[k][1]>-2:
-                    nb_catch_and_shoot+=1
-                    nb_cns_missed+=1
+            if TIME_TO_SHOOT[k][1]<-0.2:
+                if D_CLOSEST_PLAYER[k][0]==0:
+                    nb_missed+=1
+                    if TIME_TO_SHOOT[k][1]>-2:
+                        nb_catch_and_shoot+=1
+                        nb_cns_missed+=1
+                    else :
+                        nb_pull_up+=1
+                        nb_pull_up_missed+=1
                 else :
-                    nb_pull_up+=1
-                    nb_pull_up_missed+=1
-            else :
-                nb_success+=1
-                if TIME_TO_SHOOT[k][1]>-2:
-                    nb_catch_and_shoot+=1
-                    nb_cns_success+=1
+                    nb_success+=1
+                    if TIME_TO_SHOOT[k][1]>-2:
+                        nb_catch_and_shoot+=1
+                        nb_cns_success+=1
+                    else :
+                        nb_pull_up+=1
+                        nb_pull_up_success+=1
+                D_CLOSEST_PLAYER_bis.append(D_CLOSEST_PLAYER[k][1])
+                T_CLOSEST_PLAYER_bis.append(T_CLOSEST_PLAYER[k][1])
+                TIME_bis.append(list(np.array(TIME[k][1]).round(2))) # round to 0.01 second
+                TIME_TO_SHOOT_bis.append(TIME_TO_SHOOT[k][1])
+                SUCCESS.append(TIME_TO_SHOOT[k][0])
+                WHO_SHOT_bis.append(WHO_SHOT[k])
+                X_SHOT.append(POSITION_SHOT[k][0])
+                Y_SHOT.append(POSITION_SHOT[k][1])
+                X_BALL.append(BALL_TRAJECTORIES[k][0])
+                Y_BALL.append(BALL_TRAJECTORIES[k][1])
+                Z_BALL.append(BALL_TRAJECTORIES[k][2])
+                QUARTER.append(5-TIME_SHOTS[k][0])
+                CLOCK.append(TIME_SHOTS[k][1])
+                MATCH_ID_bis.append(MATCH_ID[k])
+                SHOT_ID.append(k)
+                if TIME_TO_SHOOT[k][1]<-2:
+                    SHOT_TYPE.append('pull-up 3P')
                 else :
-                    nb_pull_up+=1
-                    nb_pull_up_success+=1
-            D_CLOSEST_PLAYER_bis.append(D_CLOSEST_PLAYER[k][1])
-            T_CLOSEST_PLAYER_bis.append(T_CLOSEST_PLAYER[k][1])
-            TIME_bis.append(list(np.array(TIME[k][1]).round(2))) # round to 0.01 second
-            TIME_TO_SHOOT_bis.append(TIME_TO_SHOOT[k][1])
-            SUCCESS.append(TIME_TO_SHOOT[k][0])
-            WHO_SHOT_bis.append(WHO_SHOT[k])
-            X_SHOT.append(POSITION_SHOT[k][0])
-            Y_SHOT.append(POSITION_SHOT[k][1])
-            X_BALL.append(BALL_TRAJECTORIES[k][0])
-            Y_BALL.append(BALL_TRAJECTORIES[k][1])
-            Z_BALL.append(BALL_TRAJECTORIES[k][2])
-            QUARTER.append(5-TIME_SHOTS[k][0])
-            CLOCK.append(TIME_SHOTS[k][1])
-            MATCH_ID_bis.append(MATCH_ID[k])
-            SHOT_ID.append(k)
-            if TIME_TO_SHOOT[k][1]<-2:
-                SHOT_TYPE.append('pull-up 3P')
-            else :
-                SHOT_TYPE.append('catch-and-shoot 3P')
+                    SHOT_TYPE.append('catch-and-shoot 3P')
 
     
     print('number of valid shot:',len(D_CLOSEST_PLAYER_bis))
@@ -289,16 +291,14 @@ def players_stats(df_shots):
     percentage_cas=[]
     
     for player in players_id:
+        s=0
+        m=0
         match_played.append(len(df1.loc[player]))
         if 1 in df2.loc[player,'D'].index:
             s=df2.loc[(player,1),'D']
-        else :
-            s=0
 
         if 0 in df2.loc[player,'D'].index:
             m=df2.loc[(player,0),'D']
-        else :
-            m=0
                 
         
         total.append(m+s)
@@ -306,11 +306,13 @@ def players_stats(df_shots):
         miss.append(m)
         percentage.append(round(s/(m+s)*100,1))
         
+        if player==1495:
+            print(df3.loc[player,'D'])
         if "catch-and-shoot 3P" in df3.loc[player,'D'].index[0]:
             if 1 in df3.loc[(player,"catch-and-shoot 3P"),'D'].index: 
                 s_cas=df3.loc[(player,"catch-and-shoot 3P",1),'D']
             else :
-                m_cas=0
+                s_cas=0
                 
             if 0 in df3.loc[(player,"catch-and-shoot 3P"),'D'].index:  
                 m_cas=df3.loc[(player,"catch-and-shoot 3P",0),'D']
@@ -329,13 +331,16 @@ def players_stats(df_shots):
             percentage_cas.append(0)
         else:
             percentage_cas.append(round(s_cas/(m_cas+s_cas)*100,1))
+            
+        if player==1495:
+            print(m_cas,s_cas)
     
     df_stats=pd.DataFrame({'total':total,'success':success,'miss':miss,'percentage':percentage,'match_played':match_played,'total_cas':total_cas,'success_cas':success_cas,'miss_cas':miss_cas,'percentage_cas':percentage_cas},index=players_id)
     return df_stats
 
 #df_plot_mean=restructure_data(dico)
-df_shots=structure_data_by_shot(dico)
-#df_stats=players_stats(df_shots)
+#df_shots=structure_data_by_shot(dico)
+df_stats=players_stats(df_shots)
 
 #df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
 #df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
