@@ -9,6 +9,7 @@ data/Shots_663_ball_traj
 data/df_plot_mean.csv
 data/df_shots.csv
 data/df_stats.csv
+data/df_trajectories.csv
 data/VR_shots
 data/video.avi
 data/animation_frames
