@@ -265,7 +265,7 @@ def structure_data_by_shot(data):
     print('percentage of pull-up success:',nb_pull_up_success/(nb_pull_up_missed+nb_pull_up_success)*100)
     
     ### put the data into a dataframe ###
-    df=pd.DataFrame({'D':D_CLOSEST_PLAYER_bis,'T':T_CLOSEST_PLAYER_bis,'Time':TIME_bis,'Time_to_shoot':TIME_TO_SHOOT_bis,'Shot result':SUCCESS,'player_id':WHO_SHOT_bis,'x_ball':X_BALL,'y_ball':Y_BALL,'z_ball':Z_BALL,'x_shooter':X_SHOT,'y_shooter':Y_SHOT,'quarter':QUARTER,'clock':CLOCK,'Match_id':MATCH_ID_bis,'shot_id':SHOT_ID,'Shot_type':SHOT_TYPE})
+    df=pd.DataFrame({'D':D_CLOSEST_PLAYER_bis,'T':T_CLOSEST_PLAYER_bis,'Time':TIME_bis,'Time_to_shoot':TIME_TO_SHOOT_bis,'Shot_result':SUCCESS,'player_id':WHO_SHOT_bis,'x_ball':X_BALL,'y_ball':Y_BALL,'z_ball':Z_BALL,'x_shooter':X_SHOT,'y_shooter':Y_SHOT,'quarter':QUARTER,'clock':CLOCK,'Match_id':MATCH_ID_bis,'shot_id':SHOT_ID,'Shot_type':SHOT_TYPE})
     
     return(df)
     
@@ -340,12 +340,16 @@ def players_stats(df_shots):
 
 #df_plot_mean=restructure_data(dico)
 #df_shots=structure_data_by_shot(dico)
-df_stats=players_stats(df_shots)
+#df_stats=players_stats(df_shots)
 
 #df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
 #df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
 #df_stats.to_csv('../data/df_stats.csv', sep=',', encoding='utf-8')
 #players.to_csv('../data/players.csv', sep=',', encoding='utf-8')
+    
+dico2=pickle.load(open('../data/Shots_663_ball_traj','rb'))
+df_trajectories=structure_data_by_shot(dico2)
+df_trajectories.to_csv('../data/df_trajectories.csv', sep=',', encoding='utf-8')
 
 
 def plot_shot(df_shots,i,players):
