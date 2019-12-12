@@ -26,7 +26,8 @@ import json
 
 ## load dictionnary ##
 
-dico=pickle.load(open('../data/Shots_663','rb'))
+dico=pickle.load(open('/Users/gabin/Downloads/Shots_def_change_reception663 (1)','rb'))
+#dico=pickle.load(open('../data/Shots_663','rb'))
 
 ## load players description ##
 
@@ -188,6 +189,9 @@ def structure_data_by_shot(data):
     BALL_TRAJECTORIES=data['BALL_TRAJECTORIES']
     TIME_SHOTS=data['TIME_SHOTS']
     MATCH_ID=data['MATCH_ID']
+    NB_DEF=data['NB_DEF']
+    OPP_POS=data['OPP_POS']
+    PLAYER_POS=data['PLAYER_POS']
     
     ### only the second column because the first one contains if it is a succes or a miss ###
     D_CLOSEST_PLAYER_bis=[]
@@ -206,6 +210,9 @@ def structure_data_by_shot(data):
     SUCCESS=[]
     SHOT_ID=[]
     SHOT_TYPE=[]
+    NB_DEF_bis=[]
+    PLAYER_POS_bis=[]
+    OPP_POS_bis=[]
     
     nb_catch_and_shoot=0
     nb_pull_up=0
@@ -249,6 +256,9 @@ def structure_data_by_shot(data):
                 QUARTER.append(5-TIME_SHOTS[k][0])
                 CLOCK.append(TIME_SHOTS[k][1])
                 MATCH_ID_bis.append(MATCH_ID[k])
+                NB_DEF_bis.append(NB_DEF[k])
+                PLAYER_POS_bis.append(PLAYER_POS[k])
+                OPP_POS_bis.append(OPP_POS[k])
                 SHOT_ID.append(k)
                 if TIME_TO_SHOOT[k][1]<-2:
                     SHOT_TYPE.append('pull-up 3P')
@@ -265,7 +275,7 @@ def structure_data_by_shot(data):
     print('percentage of pull-up success:',nb_pull_up_success/(nb_pull_up_missed+nb_pull_up_success)*100)
     
     ### put the data into a dataframe ###
-    df=pd.DataFrame({'D':D_CLOSEST_PLAYER_bis,'T':T_CLOSEST_PLAYER_bis,'Time':TIME_bis,'Time_to_shoot':TIME_TO_SHOOT_bis,'Shot_result':SUCCESS,'player_id':WHO_SHOT_bis,'x_ball':X_BALL,'y_ball':Y_BALL,'z_ball':Z_BALL,'x_shooter':X_SHOT,'y_shooter':Y_SHOT,'quarter':QUARTER,'clock':CLOCK,'Match_id':MATCH_ID_bis,'shot_id':SHOT_ID,'Shot_type':SHOT_TYPE})
+    df=pd.DataFrame({'D':D_CLOSEST_PLAYER_bis,'T':T_CLOSEST_PLAYER_bis,'Time':TIME_bis,'Time_to_shoot':TIME_TO_SHOOT_bis,'Shot_result':SUCCESS,'player_id':WHO_SHOT_bis,'x_ball':X_BALL,'y_ball':Y_BALL,'z_ball':Z_BALL,'x_shooter':X_SHOT,'y_shooter':Y_SHOT,'quarter':QUARTER,'clock':CLOCK,'Match_id':MATCH_ID_bis,'shot_id':SHOT_ID,'Shot_type':SHOT_TYPE,'nb_def':NB_DEF_bis,'shooter_pos':PLAYER_POS_bis,'opp_pos':OPP_POS_bis})
     
     return(df)
     
@@ -275,9 +285,9 @@ def players_stats(df_shots):
     
     "This function return a dataframe of players statistics."
     
-    df1=df_shots[['player_id','Shot result','D','Match_id','Shot_type']].groupby(['player_id','Match_id']).count()
-    df2=df_shots[['player_id','Shot result','D','Match_id','Shot_type']].groupby(['player_id','Shot result']).count()
-    df3=df_shots[['player_id','Shot result','D','Match_id','Shot_type']].groupby(['player_id','Shot_type','Shot result']).count()
+    df1=df_shots[['player_id','Shot_result','D','Match_id','Shot_type']].groupby(['player_id','Match_id']).count()
+    df2=df_shots[['player_id','Shot_result','D','Match_id','Shot_type']].groupby(['player_id','Shot_result']).count()
+    df3=df_shots[['player_id','Shot_result','D','Match_id','Shot_type']].groupby(['player_id','Shot_type','Shot_result']).count()
     players_id=df_shots['player_id'].unique()
     
     total=[]
@@ -338,31 +348,161 @@ def players_stats(df_shots):
     df_stats=pd.DataFrame({'total':total,'success':success,'miss':miss,'percentage':percentage,'match_played':match_played,'total_cas':total_cas,'success_cas':success_cas,'miss_cas':miss_cas,'percentage_cas':percentage_cas},index=players_id)
     return df_stats
 
-#df_plot_mean=restructure_data(dico)
-#df_shots=structure_data_by_shot(dico)
-#df_stats=players_stats(df_shots)
 
-#df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
-#df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
-#df_stats.to_csv('../data/df_stats.csv', sep=',', encoding='utf-8')
+df_plot_mean=restructure_data(dico)
+df_shots=structure_data_by_shot(dico)
+
+def distance_to_basket(row): 
+    z_ball=row['z_ball']
+    x_ball=row['x_ball']
+    y_ball=row['y_ball']
+    
+    if x_ball[-1]>94//2:
+        basket_pos=[94-5.25,25]
+    else :
+        basket_pos=[5.25,25]
+    
+    d_basket=[]
+    for k in range(len(x_ball)):
+        d_basket.append(-np.sqrt((x_ball[k]-basket_pos[0])**2+(y_ball[k]-basket_pos[1])**2))
+    
+    return(d_basket)
+
+df_shots['d_basket']=df_shots.apply(distance_to_basket,axis=1) 
+
+def z_angle(row):
+    z_ball=row['z_ball']
+    d_basket=row['d_basket']
+    angle=[]
+    for k in range(len(d_basket)-1):
+        z1=z_ball[k]
+        z2=z_ball[k+1]
+        d1=d_basket[k]
+        d2=d_basket[k+1]
+        if (d2-d1)<=0:
+            angle.append(np.degrees(np.arctan((z2-z1)/(d2-d1)))+180)
+        else :
+            if (z2-z1)<=0:
+                angle.append(np.degrees(np.arctan((z2-z1)/(d2-d1)))+360)
+            else:
+                angle.append(np.degrees(np.arctan((z2-z1)/(d2-d1))))
+    return(angle)
+ 
+df_shots['angle']=df_shots.apply(z_angle,axis=1)  
+
+### A function to determine precisely the moment where the ball leaves shooter's hands ###
+def release_moment(row):
+    z_ball=row['z_ball']
+    angle=row['angle']
+    Time=row['Time']
+    
+    if len(z_ball)>40:
+        release_time=z_ball.index(max(z_ball[40:]))
+    else :
+        release_time=z_ball.index(max(z_ball))
+    release_time-=1
+    while release_time>0 and z_ball[release_time]>8.2 and (30<angle[release_time] or angle[release_time]<70):
+        release_time-=1
+        
+    if release_time==0:
+        return 0.
+    
+    else :
+        release_time+=1
+        return(Time[release_time])
+        
+df_shots['release_moment']=df_shots.apply(release_moment,axis=1)
+        
+def new_time(row):
+    release_moment=row['release_moment']
+    Time=row['Time']
+    return(list(np.array(Time)-release_moment))
+
+df_shots['Time']=df_shots.apply(new_time,axis=1)
+        
+def shot_duration(row): # to calcul shot duration we look the time between release of the ball and the minimum (higher than 2 feets toavoid rebounds) of z_ball within one second before shot
+    z_ball=row['z_ball']
+    Time=row['Time']
+    time_start=Time.index(0.)
+    zmin=[z_ball[time_start],time_start]
+    z1=zmin[0]
+    while time_start>0 and Time[time_start]>-1. and z_ball[time_start]>2:
+        time_start-=1
+        z2=z_ball[time_start]
+        if z2>4:
+            if z2<zmin[0]:
+                zmin=[z2,time_start]
+        if z2<4:
+            if z2>z1:
+                return(-Time[time_start+1])
+        z1=z2
+        
+    return(-Time[zmin[1]])
+    
+df_shots['shot_duration']=df_shots.apply(shot_duration,axis=1)
+    
+def release_time(row):
+    release_moment=row['release_moment']
+    TTS=row['Time_to_shoot']
+    shot_duration=row['shot_duration']
+    if (TTS-release_moment)>-shot_duration:
+        return(-shot_duration)
+    return(TTS-release_moment)
+
+df_shots['release_time']=df_shots.apply(release_time,axis=1)
+
+def shot_type(row):
+    release_time=row['release_time']
+    Time=row['Time']
+    if release_time<-2:
+        return('pull-up 3P')
+    else :
+        ind1=list(abs(np.array(Time)-release_time)).index(min(abs(np.array(Time)-release_time)))
+        ind2=Time.index(0.)
+
+        z_ball=row['z_ball']
+        for k in range(ind1,ind2):
+            if z_ball[k]<2: #it means that there was a dribble
+                return('pull-up 3P')
+        return('catch-and-shoot 3P')
+        
+df_shots['Shot_type']=df_shots.apply(shot_type,axis=1)
+
+df_stats=players_stats(df_shots)
+
+df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
+df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
+df_stats.to_csv('../data/df_stats.csv', sep=',', encoding='utf-8')
 #players.to_csv('../data/players.csv', sep=',', encoding='utf-8')
     
-dico2=pickle.load(open('../data/Shots_663_ball_traj','rb'))
-df_trajectories=structure_data_by_shot(dico2)
-df_trajectories.to_csv('../data/df_trajectories.csv', sep=',', encoding='utf-8')
+#dico2=pickle.load(open('../data/Shots_663_ball_traj','rb'))
+#df_trajectories=structure_data_by_shot(dico2)
+#df_trajectories.to_csv('../data/df_trajectories.csv', sep=',', encoding='utf-8')
 
+print('nb CaS : ',len(df_shots.query('Shot_type=="catch-and-shoot 3P"  and player_id==201939')))
+print(len(df_shots.query('Shot_type=="catch-and-shoot 3P" and player_id==202691'))/len(df_shots)*100)
+
+#import seaborn as sns
+#sns.distplot(df_shots.query('player_id==201939 and Shot_type=="catch-and-shoot 3P"')['release_time'])
+#sns.distplot(df_shots.query('player_id==201229 and Shot_type=="catch-and-shoot 3P"')['release_time'])
+
+import ast
+df_shots=pd.read_csv('../data/df_shots.csv',index_col=[0],converters={1:ast.literal_eval,2:ast.literal_eval,3:ast.literal_eval,7:ast.literal_eval,8:ast.literal_eval,9:ast.literal_eval,17:ast.literal_eval})
 
 def plot_shot(df_shots,i,players):
-    fig, (ax1, ax2) = plt.subplots(2, 1,figsize=(5,10))
+    fig, ((ax1, ax2),(ax3,ax4)) = plt.subplots(2, 2,figsize=(10,10))
+    print(df_shots.query('shot_id==@i').index[0])
+    i=df_shots.query('shot_id==@i').index[0]
     Time=df_shots.iloc[i]['Time']
     D=df_shots.iloc[i]['D']
     T=df_shots.iloc[i]['T']
-    tts=df_shots.iloc[i]['Time_to_shoot']
+    tts=df_shots.iloc[i]['release_time']
     player_id=df_shots.iloc[i]['player_id']
     c=df_shots.iloc[i]['clock']
-    print(i,df_shots.iloc[i]['Match_id'],df_shots.iloc[i]['quarter'],str(c//60)+'m '+str(c%60),player_id,players.loc[player_id,'lastName'],df_shots.iloc[i]['Shot_type'],tts,df_shots.iloc[i]['Shot result'])
+    print(i,df_shots.iloc[i]['Match_id'],df_shots.iloc[i]['quarter'],str(c//60)+'m '+str(c%60),player_id,players.loc[player_id,'lastName'],df_shots.iloc[i]['Shot_type'],tts,df_shots.iloc[i]['Shot_result'])
     ax1.axvline(tts, color='black',linestyle="dashed",lw=1)
     ax2.axvline(tts, color='black',linestyle="dashed",lw=1)
+    ax3.axvline(tts, color='black',linestyle="dashed",lw=1)
     ax1.plot(Time,D,'r-',alpha=0.8)
     ax2.plot(Time,T,'r-',alpha=0.8)
     
@@ -370,6 +510,8 @@ def plot_shot(df_shots,i,players):
     ax1.set_ylim((0,30))
     ax2.set_xlim((-3.2,0.8))
     ax2.set_ylim((0,2))
+    ax3.plot(Time,df_shots.iloc[i]['z_ball'])
+    ax4.plot(Time,df_shots.iloc[i]['nb_def'])
     plt.show()
     
 def print_df_shot(df_shots,players):
