@@ -298,14 +298,40 @@ def time_closest_opponent(moment1,moment2,player_id):
             
     return(tmin)
     
-def animation_print_court_teams_occupation_inertia(fig,ax,events,event_id,mom_id,voronoi_cut=False,player_info=False,n=50,p=94):
+def player_with_ball(moments,i):    # return the ID of the player who has the ball
+    players=moments[i][5][1:]
+    ball=moments[i][5][0][2:5]
+    if ball[2]>2.5*3.28:
+        return(0)
+    else :
+        dmin=[m.sqrt((players[0][2]-ball[0])**2+(players[0][3]-ball[1])**2),players[0][1]]
+        for k in range(1,len(players)):
+            d=m.sqrt((players[k][2]-ball[0])**2+(players[k][3]-ball[1])**2)
+            if d<dmin[0]:
+                dmin=[d,players[k][1]]
+        return dmin[1]
+    
+def closest_def(moments,j,who_ball):
+    
+    dmin=[np.inf,0]
+    team_player=0
+    players=moments[j][5]
+    player=None
+    
+    for k in range(len(players)):
+        if players[k][1]==who_ball:
+            team_player=players[k][0]
+            player=players[k][2:4]
+            
+    for k in range(len(players)):
+        if players[k][0]!=team_player and players[k][0]!=-1:
+            d=[distance(players[k][2:4],player),players[k][1]]
+            if d[0]<dmin[0]:
+                dmin=d
+            
+    return(dmin[1])
+def animation_print_court_teams_occupation_inertia(fig,ax,moment1,moment2,voronoi_cut=False,player_info=False,n=50,p=94):
     "This function return a visualization of the court for the moment mom_id of the event event_id. If voronoi_cut=True, voronoi cutting is plotted. Then, if value=True, a heat-map giving a value to space occupation is drawn."
-    if voronoi_cut:
-        voronoi(events,event_id,mom_id)
-    event=events[event_id]
-    moment=event['moments'][mom_id]
-    moment1=moment
-    moment2=event['moments'][mom_id+1]
     
     # separation of ball, team1 and team2 and calculation of the speed
     mom_infos=players_ball_speed_position(moment1,moment2)

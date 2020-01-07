@@ -6,6 +6,11 @@ Created on Fri Nov 29 11:31:40 2019
 @author: gabin
 """
 
+#########################################################################################################
+
+# This algorithm create three dataframe from shots dictionnary : df_shots, df_plot_mean, df_stats
+
+#########################################################################################################
 #The shots are memorized in python dictionnary called Shots (too big to be on the repository). It is composed of nine keys :
 #* D_CLOSEST_DEF : a list of list. Each list corresponds to a shot and has two elements. The first one is 0 or 1 : if it is 1 it means that the shot was a success and if it is 0 the shot was missed. The second element is the evolution of the shooter's *free space* ($\delta_{space}^*$ distance to the closest defender) 3 seconds before the shot. 
 #* T_CLOSEST_DEF : It the same but *free space* is calculated as the time (in second) needed by the closest defender to join the position of the shooter ($\delta_{time}^*$). 
@@ -26,8 +31,7 @@ import json
 
 ## load dictionnary ##
 
-dico=pickle.load(open('/Users/gabin/Downloads/Shots_def_change_reception663 (1)','rb'))
-#dico=pickle.load(open('../data/Shots_663','rb'))
+dico=pickle.load(open('../data/Shots','rb'))
 
 ## load players description ##
 
@@ -166,9 +170,6 @@ def restructure_data(data):
     
     ### put the data into a dataframe ###
     df=pd.DataFrame({'D':D_CLOSEST_PLAYER_bis,'T':T_CLOSEST_PLAYER_bis,'Time':TIME_bis,'Time_to_shoot':TIME_TO_SHOOT_bis,'Shot result':SUCCESS,'player_id':WHO_SHOT_bis,'x_ball':X_BALL,'y_ball':Y_BALL,'z_ball':Z_BALL,'x_shooter':X_SHOT,'y_shooter':Y_SHOT,'quarter':QUARTER,'clock':CLOCK,'Match_id':MATCH_ID_bis,'shot_id':SHOT_ID,'Shot_type':SHOT_TYPE})
-    
-    ## only evolution between 3.2 seconds before shot and 0.8 second after. (It is because there are some errors in the data) ##
-    df=df.query('Time>-3.2 and Time<0.8').copy()
     
     return(df)
 
@@ -352,6 +353,13 @@ def players_stats(df_shots):
 df_plot_mean=restructure_data(dico)
 df_shots=structure_data_by_shot(dico)
 
+##############################################################################################################################
+
+# Derive and clean the datasets
+
+##############################################################################################################################
+
+# Calculation of the distance from the ball to the hoop
 def distance_to_basket(row): 
     z_ball=row['z_ball']
     x_ball=row['x_ball']
@@ -401,7 +409,10 @@ def release_moment(row):
     else :
         release_time=z_ball.index(max(z_ball))
     release_time-=1
-    while release_time>0 and z_ball[release_time]>8.2 and (30<angle[release_time] or angle[release_time]<70):
+    
+    while release_time>0 and z_ball[release_time]>10:
+        release_time-=1
+    while release_time>0 and z_ball[release_time]>6 and angle[release_time]<70:
         release_time-=1
         
     if release_time==0:
@@ -468,31 +479,183 @@ def shot_type(row):
         
 df_shots['Shot_type']=df_shots.apply(shot_type,axis=1)
 
+
+def opp_position_release(row):
+    Time=row['Time']
+    ind=Time.index(0.)
+    return(row['opp_pos'][ind])
+
+def player_position_release(row):
+    Time=row['Time']
+    ind=Time.index(0.)
+    return(row['shooter_pos'][ind])
+
+df_shots['opp_position_release']=df_shots.apply(opp_position_release,axis=1)
+df_shots['player_position_release']=df_shots.apply(player_position_release,axis=1)
+
+def distance(a,b):      #a = (x,y) point de départ ; b = (i,j) point d'arrivée ; v = norme pour l'instant
+    return np.sqrt((a[0]-b[0])**2+(a[1]-b[1])**2)
+
+#Looking if shots were behind the 3-point line with the new release moment
+def behind_three_point_line(row):
+    p=row['player_position_release']
+    x_ball=row['x_ball']
+    if x_ball[-1]>94/2:
+        where=0
+    else :
+        where=1
+    coin=False
+    if where==1 :
+        basket_pos=[5.25,25]
+        if p[0]<15:
+            coin=True
+    else :
+        basket_pos=[94-5.25,25]
+        if p[0]>(94-15):
+            coin=True
+    if coin : 
+        if 0<p[1]<3.5 or 50-3.5<p[1]<50 : 
+            return (True)
+        else :
+            return (False)
+    else :
+        if distance(p,basket_pos)>23.5 :  #In fact 23.75 but we take a marge to have all shoots
+            return (True)
+        else:
+            return (False)
+        
+df_shots['btpl']=df_shots.apply(behind_three_point_line,axis=1)
+
+print('time df_plot_mean')
+
+def correct_df_plot_mean(df_plot_mean,df_shots):
+    Time=[]
+    Shot_type=[]
+    btpl=[]
+    k=0
+    Time_df=df_shots['Time']
+    print(Time_df)
+    Shot_type_df=df_shots['Shot_type']
+    btpl_df=df_shots['btpl']
+    for k in range(len(Time_df)):
+        if k%100==0:
+            print(k)
+        Time=Time+Time_df[k]
+        Shot_type=Shot_type+[Shot_type_df[k]]*len(Time_df[k])
+        btpl=btpl+[btpl_df[k]]*len(Time_df[k])
+
+    df_plot_mean.loc[:,'Time']=Time
+    df_plot_mean.loc[:,'Shot_type']=Shot_type
+    df_plot_mean.loc[:,'btpl']=btpl
+    
+correct_df_plot_mean(df_plot_mean,df_shots)
+
+## only evolution between 3.2 seconds before shot and 0.8 second after. (It is because there are some errors in the data) ##
+df_plot_mean=df_plot_mean.query('Time>-3. and Time<0.8')
+    
+df_shots=df_shots.query('btpl==True')
+df_plot_mean=df_plot_mean.query('btpl==True')
+
+
+df_shots.loc[10538,'Shot_result']=0
+df_shots.loc[15772,'Shot_result']=0
+df_shots.loc[22101,'Shot_result']=0
+df_shots.loc[27446,'Shot_result']=0
+df_shots.loc[20721,'Shot_result']=0
+df_shots.loc[9892,'Shot_result']=0
+df_shots.loc[10914,'Shot_result']=0
+
+ind=df_shots.query('shot_id==7641').index[0]
+df_shots.drop(ind,inplace=True)
+ind=df_shots.query('shot_id==14919').index[0]
+df_shots.drop(ind,inplace=True)
+
+print('players_stats')
+
+def players_stats(df_shots):
+    
+    "This function return a dataframe of players statistics."
+    
+    df1=df_shots[['player_id','Shot_result','D','Match_id','Shot_type']].groupby(['player_id','Match_id']).count()
+    df2=df_shots[['player_id','Shot_result','D','Match_id','Shot_type']].groupby(['player_id','Shot_result']).count()
+    df3=df_shots[['player_id','Shot_result','D','Match_id','Shot_type']].groupby(['player_id','Shot_type','Shot_result']).count()
+    players_id=df_shots['player_id'].unique()
+    
+    total=[]
+    success=[]
+    miss=[]
+    percentage=[]
+    match_played=[]
+    total_cas=[]
+    success_cas=[]
+    miss_cas=[]
+    percentage_cas=[]
+    
+    for player in players_id:
+        s=0
+        m=0
+        match_played.append(len(df1.loc[player]))
+        if 1 in df2.loc[player,'D'].index:
+            s=df2.loc[(player,1),'D']
+
+        if 0 in df2.loc[player,'D'].index:
+            m=df2.loc[(player,0),'D']
+                
+        
+        total.append(m+s)
+        success.append(s)
+        miss.append(m)
+        percentage.append(round(s/(m+s)*100,1))
+        
+        if player==1495:
+            print(df3.loc[player,'D'])
+        if "catch-and-shoot 3P" in df3.loc[player,'D'].index[0]:
+            if 1 in df3.loc[(player,"catch-and-shoot 3P"),'D'].index: 
+                s_cas=df3.loc[(player,"catch-and-shoot 3P",1),'D']
+            else :
+                s_cas=0
+                
+            if 0 in df3.loc[(player,"catch-and-shoot 3P"),'D'].index:  
+                m_cas=df3.loc[(player,"catch-and-shoot 3P",0),'D']
+            else:
+                m_cas=0
+        else :
+            s_cas=0
+            m_cas=0
+                
+
+        total_cas.append(m_cas+s_cas)
+        success_cas.append(s_cas)
+        miss_cas.append(m_cas)
+        
+        if s_cas+m_cas==0:
+            percentage_cas.append(0)
+        else:
+            percentage_cas.append(round(s_cas/(m_cas+s_cas)*100,1))
+    
+    df_stats=pd.DataFrame({'total':total,'success':success,'miss':miss,'percentage':percentage,'match_played':match_played,'total_cas':total_cas,'success_cas':success_cas,'miss_cas':miss_cas,'percentage_cas':percentage_cas},index=players_id)
+    return df_stats
+
 df_stats=players_stats(df_shots)
 
 df_plot_mean.to_csv('../data/df_plot_mean.csv', sep=',', encoding='utf-8')
 df_shots.to_csv('../data/df_shots.csv', sep=',', encoding='utf-8')
 df_stats.to_csv('../data/df_stats.csv', sep=',', encoding='utf-8')
 #players.to_csv('../data/players.csv', sep=',', encoding='utf-8')
-    
-#dico2=pickle.load(open('../data/Shots_663_ball_traj','rb'))
-#df_trajectories=structure_data_by_shot(dico2)
-#df_trajectories.to_csv('../data/df_trajectories.csv', sep=',', encoding='utf-8')
+print('number of shots:',len(df_shots))
+print(df_stats['total_cas'].sum(),df_stats['total_cas'].sum()/26295*100)
+print(df_stats['success'].sum(),df_stats['miss'].sum(),df_stats['success'].sum()/26295*100)
+print(df_stats['success_cas'].sum(),df_stats['miss_cas'].sum(),df_stats['success_cas'].sum()/18896*100)
 
-print('nb CaS : ',len(df_shots.query('Shot_type=="catch-and-shoot 3P"  and player_id==201939')))
-print(len(df_shots.query('Shot_type=="catch-and-shoot 3P" and player_id==202691'))/len(df_shots)*100)
+print('nb CaS : ',len(df_shots.query('Shot_type=="catch-and-shoot 3P"')))
+print(len(df_shots.query('Shot_type=="catch-and-shoot 3P"'))/len(df_shots)*100)
 
-#import seaborn as sns
-#sns.distplot(df_shots.query('player_id==201939 and Shot_type=="catch-and-shoot 3P"')['release_time'])
-#sns.distplot(df_shots.query('player_id==201229 and Shot_type=="catch-and-shoot 3P"')['release_time'])
-
-import ast
-df_shots=pd.read_csv('../data/df_shots.csv',index_col=[0],converters={1:ast.literal_eval,2:ast.literal_eval,3:ast.literal_eval,7:ast.literal_eval,8:ast.literal_eval,9:ast.literal_eval,17:ast.literal_eval})
-
-def plot_shot(df_shots,i,players):
+def plot_shot(df_shots,j,players):
     fig, ((ax1, ax2),(ax3,ax4)) = plt.subplots(2, 2,figsize=(10,10))
-    print(df_shots.query('shot_id==@i').index[0])
-    i=df_shots.query('shot_id==@i').index[0]
+    #print(df_shots.query('shot_id==@j'))
+    print(df_shots.query('shot_id==@j').index[0])
+    i=df_shots.query('shot_id==@j').index[0]
+    #print(df_shots.iloc[i])
     Time=df_shots.iloc[i]['Time']
     D=df_shots.iloc[i]['D']
     T=df_shots.iloc[i]['T']
@@ -510,8 +673,11 @@ def plot_shot(df_shots,i,players):
     ax1.set_ylim((0,30))
     ax2.set_xlim((-3.2,0.8))
     ax2.set_ylim((0,2))
-    ax3.plot(Time,df_shots.iloc[i]['z_ball'])
-    ax4.plot(Time,df_shots.iloc[i]['nb_def'])
+    ax3.plot(list(df_shots.iloc[i]['d_basket']),df_shots.iloc[i]['z_ball'])
+    ind=Time.index(0)
+    ax3.plot(df_shots.iloc[i]['d_basket'][ind],df_shots.iloc[i]['z_ball'][ind],'ro')
+    print(df_shots.iloc[i]['angle'][ind-1])
+    #ax4.plot(Time,df_shots.iloc[i]['angle'])
     plt.show()
     
 def print_df_shot(df_shots,players):
